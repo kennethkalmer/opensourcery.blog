@@ -41,6 +41,14 @@ page "/feed.xml", layout: false
 # end
 
 ###
+# Bower
+###
+
+after_configuration do
+  sprockets.append_path File.join root, 'bower_components'
+end
+
+###
 # Page options, layouts, aliases and proxies
 ###
 
