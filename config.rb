@@ -75,6 +75,12 @@ activate :disqus do |d|
   d.shortname = 'opensourcery'
 end
 
+# UA
+activate :google_analytics do |ga|
+  ga.tracking_id = 'UA-192703-9'
+  ga.development = false
+end
+
 ###
 # Helpers
 ###
