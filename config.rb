@@ -69,6 +69,12 @@ end
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
+# Disqus
+activate :disqus do |d|
+  # Disqus shotname, without '.disqus.com' on the end (default = nil)
+  d.shortname = 'opensourcery'
+end
+
 ###
 # Helpers
 ###
