@@ -9,3 +9,7 @@ gem "middleman-disqus", "~> 1.0.0"
 
 # For feed.xml.builder
 gem "builder", "~> 3.0"
+
+# For summaries
+gem "nokogiri"
+
