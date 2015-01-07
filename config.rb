@@ -81,6 +81,9 @@ activate :google_analytics do |ga|
   ga.development = false
 end
 
+# Syntax
+activate :syntax
+
 ###
 # Helpers
 ###
