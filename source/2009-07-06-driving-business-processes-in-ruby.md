@@ -1,0 +1,184 @@
+---
+id: 218
+title: Driving Business Processes in Ruby
+author: Kenneth Kalmer
+layout: retro
+guid: http://www.opensourcery.co.za/?p=218
+permalink: /2009/07/06/driving-business-processes-in-ruby/
+tags:
+  - ruote
+  - state_machine
+  - workflows
+disqus_identifier: '218 http://www.opensourcery.co.za/?p=218'
+---
+
+Decisions decisions, as Ruby developers we face them every day. Some are easier to make than others, they have the ability to shape or break a project (even a business). We&#8217;ve faced the decisions of ActiveRecord or DataMapper, jQuery or Prototype, Merb or Rails. Now the decisions are getting tough, and the impact of the next decisions are even bigger. I recently tackled the issue of [choosing between AMQP and XMPP][1] (and I&#8217;m honestly still on the bench, even when I&#8217;m using *both* in production), and there is the SQL or NoSQL decision.  So what is your next big decision?
+
+**Do you externalize your business processes? Or, do you use a state machine or workflow engine?**
+
+John Mettraux posted a powerful read on the fact that [state machines are not workflow engines][2], and I share the sentiment completely. I&#8217;m a vocal user of John&#8217;s [ruote][3], a Ruby workflow engine, but I also use state machines, and I use them in tandem.
+
+I choose early on that I need to externalize my business processes for our [ISP in a Box][4] product, to help break the project into manageable components, and this article shares how and why.
+
+**Limitations of state machines**
+
+I&#8217;m not giving any background on [what state machines are][5], or any of the possible uses. I&#8217;m going to highlight some limitations of state machines from a business process perspective, especially state machines that hook into ActiveRecord (or database models).
+
+*Lack of context*
+
+Knowing in what state the object is isn&#8217;t always enough. For decision makers (autonomous or human), context plays a definitive part in making a business decision. If a service ends up in a &#8220;suspended&#8221; state, for arguments sake, decision makers need to know why. Was the service suspended due to bad payment, was it suspended due to abuse of the terms of use, or was it suspended because client relations had a bad day. Having multiple states to disambiguate the precariousness of the suspension is not cool.<br style="text-decoration: line-through;" />
+
+*Lack of history*
+
+Extending on the context topic above, the history of how an object got to a state might be just as important to a decision maker. It is also important for a reporter, or observer in the process. Business processes inherently have multiple paths, it is just never as simple as it seems. Placing an order for a book at Amazon, in theory, fires off business processes unimaginable to us mere mortals. Think about it for a second, they need to check stock, decide from which warehouse to dispense stock, optimum shipping combinations, manage re-orders, handle invalid shipping destinations, and so much more. Calling events on an order object just won&#8217;t cut it. Each decision maker in such a huge process needs to know why the work ended up at them. A shipping coordinator in New York might question why he has to ship a book to Seattle, but if he knows that Los Angeles is out of stock he doesn&#8217;t mind to do it. I know they&#8217;re fully automated, but play along for a second.
+
+*Open ended*
+
+Another thing about state machines is their open ended nature. For a lot of applications this is brilliant, but not for business processes. Business processes have a definite start and end, with whatever means needed to get from the one to the other. State machines can change from any state to another. This can however be controlled with guards, or setting up a limited transition table, but then the machine gets clunky and difficult to manage. It looses it&#8217;s appeal.
+
+*Versionless*
+
+State machines are versionless by nature, and business processes are constantly evolving and getting refactored. As decision makers gain more experience, business processes get leaner and meaner. Especially in times of financial uncertainty there is a big focus on driving down costs and cutting out unneeded, costly steps from business processes. In a state machine this doesn&#8217;t necessarily translate into less states, or less transitions, but it does make it difficult to determine if a process is still part of the old regime, or the new one.
+
+*State machines are good at expressing behaviors*
+
+And this should be leveraged by the developer, however, behaviors hardly come close to defining a business process as a whole. The behavior of an object can be seen as how it it behaves during a business process, and not the process itself. More on this later when I discuss combining state machines and workflow engines.
+
+*Don&#8217;t abandon state machines!*
+
+To proponents of state machines this post will definitely seem like heresy, and I do apologise. State machines are wonderful tools, and at the end of the article you&#8217;ll see how I do use them together with a workflow engine. My argument for the post is that state machines are not the right tool to drive business processes. Business processes are big and bulky and far more complex than what they appear on the surface. They need a suitable environment to run in, something stable to drive them, and a database model with a state machine is hardly the place.
+
+**Externalize your business processes**
+
+Externalizing your business processes, and running them inside a workflow engine is a big decision that has massive payoffs if you implement it correctly. If you do it wrong, you will most likely hate me for writing this article, and pretty much everyone in the BPM/WFE space. For me, the decision to externalize the process is busy paying off handsomely, albeit I&#8217;m still resolving a lot of unanticipated issues (ie scaling the workflows).
+
+*Enter ruote*
+
+ruote is a Ruby workflow engine, which parses process definitions into expression trees and executes them. Greek? Don&#8217;t worry. Process definitions, a ruote DSEL, are Ruby classes that definite the flow of your business process. They are made up off expressions (think methods), and each expression plays its part in the business process. This is akin to a flowchart, where you have a start and an end, or multiple ends to the process. Expressions can be decision points (diamonds), participants that perform work (blocks), looping constructs and plenty of other goodies. ruote is a business process operating system&#8230;
+
+*Workflow engines are business process operating systems*
+
+Bold statement, yes, but not a lie. Workflow engines need to be solid and reliable environments. We rely on Apache to reliably house our running application, or databases to reliably store our information, and the operating system to reliably run all of this. If the environment is stable, we can focus on our own code, without much care. The same holds true for our business processes. A workflow engine doesn&#8217;t have office hours, needs to be available at all times and running flawlessly. It also requires a lot of instruments that coordinate our efforts, to keep our business afloat. There is persistence, thread safety and concurrent access of work, schedulers and much more at play.
+
+A part of me thinks that state machines are so attractive to us as Ruby developers because we don&#8217;t want to manage all the real work involved in running business processes. We like turning ORM&#8217;s into Thor&#8217;s hammer, so to speak.
+
+*Participation*
+
+As your business process is executing it will interact with various participants. Participants can be be fully autonomous, or people. The concepts of participants is foreign at first, because it doesn&#8217;t map to users of the system directly. To give you a rough idea of participants, consider a simple domain registration process. Our clients register a new domain in the system, which initiates a new instance of a defined business process. First we add the domain to our DNS servers, then we register the domain with a registrar, then we notify the client. Without automation we&#8217;ll have one participant: ActiveRecord participant. This participant simply saves workitems in a table in a database, and we can poll this table looking for work. Using the workitem&#8217;s payload we can determine whether the workitem indicates one of three unique pieces of work that needs to be performed:
+
+  1. DNS Admin to add domain to servers
+  2. DNS Admin to register domain with registrar
+  3. Client message when they log back in again (or view domain, or whatever)
+
+With automation the participation changes to something like this:
+
+<table id="lhqo" class="zeroBorder" border="0" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr>
+    <td>
+      PowerDNS Participant
+    </td>
+
+    <td>
+      Use ActiveResource to add the domain via <a href="http://kennethkalmer.github.com/powerdns-on-rails/">PowerDNS on Rails</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Registrar Participant
+    </td>
+
+    <td>
+      Register the domain via registrars pathetic XML API
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Notification Participant
+    </td>
+
+    <td>
+      Send an email to the client to tell them registration has completed
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      ActiveRecord Participant
+    </td>
+
+    <td>
+      If automation fails, have a workitem ready for support personnel
+    </td>
+  </tr>
+</table>
+
+*History and context*
+
+Using the above example of automating processes, history and context becomes quite important when a workitem lands at the support personnel desk. They need to know where the error happened, what lead up to the error, who is involved in the process, and maybe something more. The ability to extract a JSON-formatted expression tree from the engine allows us use ruote-fluo to graph the process on a canvas tag for the support personnel, so they know exactly what happened prior to the error being reported. This knowledge of prior actions is invaluable when deciding on a course of action, which in business is the difference between closing or cancelling a deal.
+
+*Time sensitive & long running processes*
+
+Automated business processes can usually finish within a couple of minutes, or seconds, depending on their complexity and the number of autonomous participants involved. But business is never as simple as it seems, and time is usually the enemy. A business process might indicate that if a support call has been opened without an initial response for more than 4 hours it needs to be escalated. Others might have indicate that we don&#8217;t send SMS messages between 19:00 and 6:00, so we don&#8217;t wake our clients. This mixed bag of *sleep* and *timeout* expressions are difficult to get done on your own, and a workflow engine should (ruote does) support this out of the box.
+
+*Versioned processes*
+
+Process definitions in ruote are parsed upon launching the process. Ruote converts the process definition into an expression tree and works with the expression tree from that point forward. Process definitions can then be fine-tuned and altered and all new launches will use the updated definitions. Existing process instances stick to their expression tree in the engine, so they remain unaffected to the changes and will play out exactly as intended. But the expression trees are not concrete either, once in the engine they can be altered at runtime, but I still have to explore those abilities of ruote myself.
+
+**Going hybrid, using the best of both**
+
+I said earlier that I haven&#8217;t abandoned state machines, and that I rather use the two instruments together to accomplish what my system requires. This is in fact very simple to implement and works brilliantly.
+
+ISP in a Box sells services, and these services need to acquired/provisioned for our clients to make use of them. All our models share, a mostly common, state machine. When services are provisioned for the first time, they enter their initial state called &#8220;pending&#8221;, and the provisioning process for said service is launched. The state machine has no idea what is going on at this stage, but ruote runs and happily executes the process. Each process is usually a mix of mostly autonomous participants and then some human intervention if the automation breaks. Other processes are purely human (like web design).
+
+While the service is &#8220;pending&#8221;, now changes are allowed to the service. Instead, when the process completes in ruote there is a callback, a &#8220;webhook&#8221;, that calls back to Rails and activates the service. This &#8220;activation&#8221; is an event defined in the state machine and transitions from &#8220;pending&#8221; to &#8220;active&#8221;. Once a service is active (ie provisioned) the owner of the service is presented with a lot of new options. These options include changing passwords, upgrading & downgrading and even cancelling. Whenever a change is requested by the client we need to fire off another process, and while the process runs we place the service in an &#8220;integrating&#8221; state. While a service is &#8220;integrating&#8221; no changes are allowed, and when the process is done it &#8220;activates&#8221; the service again.
+
+There are plenty of other states and transitions defined, including states for &#8220;suspended&#8221; and &#8220;deleted&#8221; (we don&#8217;t remove data from the database). Each event fires off a different process in ruote, leaving the service with only one decision to make: Which process to I launch under these circumstances?
+
+This combination works extremely well for us since the state machines are very small and lean, and they do exactly what is expected of them: indicate state and handle/prevent transitions between said states. They are not burdened with making business decisions, the handle state. Simple, powerful, effective.
+
+**Wow! How do I get going?**
+
+Glad you like it, but be careful. As wonderful as the BPM/WFE world sounds, it is a serious leap to take. First off all make sure that your situation necessitates a workflow engine. I&#8217;ve pointed a lot of people to a simpler daemon-kit + AMQP combination for their needs when asking about ruote. In the majority of simple automated tasks a state machine with worker processes will suffice. ruote is all about business processes and automating those processes.
+
+Implementing ruote also brings a lot of changes to the way you develop software. For one, ruote cannot run inside Rails like a normal plugin. It needs one instance to be running, not multiple ones, due to the internal scheduler. We&#8217;re trying to work out away around this, but it&#8217;s on the back burners for now. This means you&#8217;ll be deploying two applications side by side. You&#8217;ll probably also start moving some of your code into gems, so you can share it between ruote and your Rails project.
+
+You&#8217;ll also need to implement a communication channel between your Rails instances and ruote, or use an existing engine &#8220;housing&#8221; like ruote-rest, or give me time to finish ruote-kit. Both ruote-rest and ruote-kit offers a RESTful interface to the engine, allowing all your projects in any language to leverage the power of ruote.
+
+*State machine versus workflow aside, a major downside to an externalized workflow is the distribution of architecture.  The golden rule for distribution is &#8220;don&#8217;t&#8221;, but that&#8217;s unrealistic, because large, complex systems often require it, and it pays off in the form of serious decoupling in these cases.  So if a workflow engine will be the first distributed step you make then you should think very carefully about what that will cost you.  Not to say don&#8217;t do it, but it&#8217;s not going to fit everywhere, sometimes the &#8220;process&#8221; is simple enough not to warrant a workflow engine this specialized.  There&#8217;s no silver bullet.* &#8211; Nic Young, a recent reviewer of ruote.
+
+But sometimes the distribution already has occurred because of a service oriented architecture. It is natural to wrap participants around services, or to use participants as facades to services. SOA is usually thought of as &#8220;in the bank&#8221;, but in our case the applications are already playing with services outside of the building. We had no choice, the distribution was already here. Ruote doesn&#8217;t know much about distribution, it just dispatches to participants and sometimes receives workitems back, whether it happend in process, or on the other side of the world.
+
+Another thing potential pitfall is database access. Personally I use ActiveResource to suck data into my participants on a &#8220;need to know&#8221; basis instead of giving ruote database access and duplicating my models between two projects.
+
+The biggest pitfall of all is learning to write these processes in a concise fashion. The engine and expression language is very very powerful, and you don&#8217;t realise at first how to chain things together. Even now, almost a year later, I find myself refining my process definitions to become leaner and cleaner and easier to maintain. The second biggest pitfall, testing business processes is a pain in the ass. I&#8217;m definitely making some progress on conceptualizing a testing methodology for process definitions, but it is still some way off.
+
+**Is it worth all this trouble?**
+
+Yes! As far as I know we might have the biggest implementation of ruote at the moment. I have roughly 70 process definitions in production, and about 20 different autonomous participants. As for human participants, it&#8217;s potentially over a thousand, though in ruote terms it is only one, and I map the payload of the workitem back to the user in our systems.
+
+The next best thing that happened to us while implementing business process definitions was it gave us a chance to refactor the business as whole. We&#8217;re a small outfit, less than 20 people, so the excercise went well. In a large organization them impact of business process refactoring, or even just formalizing, is a massive undertaking and increases the number of stakeholders in the project dramatically, use more time, and translates into a higher up front cost.
+
+**Looking forward**
+
+John is working hard on ruote 2.0, which is a complete rewrite of the 0.9 code base. From the outside it will pretty much look the same, but internally it is a whole new beast. I&#8217;m taking on a complete rewrite of ruote-rest rest, christened ruote-kit, which will become the prefered means of exposing ruote to Rails applications. After a lot of chatting with Andrew Timberlake and others in #ruote and on the mailing list, it&#8217;s become a real neccesity that we provide a framework for testing/specing process definitions. I&#8217;ll tackle this once ruote-kit has made it from vaporware into a polished product, and I&#8217;m thinking ruote-spec will be its name.
+
+**Resources**
+
+
+  * [pluginaweek/state_machine][6]
+  * [ruote][3]
+  * [ruote in 20 minutes][7]
+  * [John&#8217;s article][2]
+  * [Rails Magazine 3][8]
+  * [Wikipedia on Finite State Machines][5]
+
+ [1]: http://www.opensourcery.co.za/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/
+ [2]: http://jmettraux.wordpress.com/2009/07/03/state-machine-workflow-engine/
+ [3]: http://ruote.io/
+ [4]: http://www.ispinabox.co.za/
+ [5]: http://en.wikipedia.org/wiki/Finite-state_machine
+ [6]: http://github.com/pluginaweek/state_machine
+ [7]: http://www.opensourcery.co.za/2009/03/04/ruote-in-20-minutes/
+ [8]: http://railsmagazine.com/issues/3

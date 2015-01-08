@@ -1,0 +1,29 @@
+---
+id: 159
+title: Ruote in 20 minutes
+author: Kenneth Kalmer
+layout: retro
+guid: http://www.opensourcery.co.za/?p=159
+permalink: /2009/03/04/ruote-in-20-minutes/
+tags:
+  - presentations
+  - ruote
+disqus_identifier: '159 http://www.opensourcery.co.za/?p=159'
+---
+
+I had the great privilege last night to do a presentation on <a href="http://ruote.io" target="_blank">Ruote</a> at the third monthly Ruby on Beer meetup here in Gauteng. It ended up taking 35 minutes, not 20 as intended, but I think I got something across to the guys.
+
+Ruote (and BPM in general) isn&#8217;t a light topic, but it is a game changer if you use it correctly. We use it here at <a href="http://www.inx.co.za" target="_blank">inX</a> to drive all our background provisioning of services (domains, hosting, emails, internet connectivity, etc) with great success. Attempting to do all those tasks with a state machine would have been futile.
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/1098600" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+<a href="http://ramblingsonrails.com/" target="_blank">Andrew Timberlake</a> was kind enough to record a video of the presentation, I&#8217;ve published the [video on this blog][1].
+
+I&#8217;ll also start posting more on Ruote, as my involvement with the project grows. In the meantime, have a look at the following resources to get started:
+
+  * <a href="http://ruote.io" target="_blank">Ruote website</a>
+  * <a href="http://groups.google.com/group/openwferu-users" target="_blank">Ruote mailing list</a>
+  * \#ruote on Freenode
+  * <a href="http://jmettraux.wordpress.com/" target="_blank">John Mettraux&#8217;s blog</a>
+
+ [1]: http://www.opensourcery.co.za/2009/08/25/ruote-in-20-minutes-video/
