@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <title><%= current_article.title %> | Open Sourcery Archives</title>
+    <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+    <%= stylesheet_link_tag 'retro', 'code' %>
+  </head>
+  <body class="retro">
+    <%= google_analytics_universal_tag %>
+
+    <div class="page-header">
+      <h1>Open Sourcery Archives</h1>
+    </div>
+
+    <div class="archive-intro">
+      <p>
+        Welcome to the Open Sourcery Archives. These are my older blog posts, from days
+        gone by. I'm keeping them up as part of the historical record. That, and I'm
+        strangely sentimental about them.
+        Please keep in mind that things most certainly have changed since these articles
+        were written, links to external sites might be broken, and general thinking might
+        have changed.
+      </p>
+      <p>Regardless of all this, I hope you enjoy your stay!</p>
+    </div>
+
+    <div id="main" role="main">
+      <article>
+        <header>
+          <%= current_article.title %>
+          <time><%= current_article.date.strftime("%e %B %Y") %></time>
+        </header>
+
+        <%= yield %>
+
+        <%= flattr_article(current_article) %>
+      </article>
+
+      <nav role="navigation" class="post-navigation">
+        <% unless current_article.previous_article.nil? %>
+        <div class="nav-previous">
+          <% article = current_article.previous_article %>
+          <%= link_to article.title, article, rel: 'prev' %>
+        </div>
+        <% end %>
+        <% unless current_article.next_article.nil? %>
+        <div class="nav-next">
+          <% article = current_article.next_article %>
+          <%= link_to article.title, article, rel: 'next' %>
+        </div>
+        <% end %>
+      </nav>
+
+      <%= disqus %>
+      <%= disqus_count %>
+    </div>
+
+    <aside>
+      <script src="//about.me/embed/kennethkalmer"></script>
+    </aside>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+// Clean slate
+@import "normalize.css/normalize";
+
+// Fonts
+@import url(http://fonts.googleapis.com/css?family=Merriweather:300);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata:700);
+@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic);
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: image-url('images/lightpaperfibers.png');
+
+  @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+
+      // For the retina displays
+      background: image-url('images/lightpaperfibers_@2X.png');
+      background-size: 500px 300px;
+  }
+}
+
+body {
+  color: #333;
+  font-size: 22px;
+  line-height: 1.5;
+  letter-spacing: 0.01rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: Inconsalata, serif;
+  font-weight: 700;
+}
+
+p, li {
+  font-family: 'PT Serif', serif;
+}
+
+.page-header, .archive-intro, #main, aside {
+  background-color: rgba(255,255,255,0.4);
+  padding: 10px;
+  width: 960px;
+  margin: 0 auto;
+}
+
+.page-header {
+  padding-bottom: 0;
+
+  h1 {
+    font-size: 48px;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    font-weight: 300;
+    color: #222;
+    border-bottom: 1px solid #111;
+    line-height: 60px;
+    margin: 10px 0;
+  }
+}
+
+.archive-intro {
+  padding-top: 0;
+  border-bottom: 1px solid rgba(100,0,0,0.4);
+
+  p {
+    color: rgba(75,0,0,0.6);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 3px 0;
+  }
+}
+
+header {
+  font-size: 2em;
+  font-family: Inconsalata, serif;
+  text-align: center;
+
+  time {
+    display: block;
+    font-size: 0.4em;
+    color: #555;
+  }
+}
+
+a {
+  color: #22E;
+  text-decoration: none;
+}
+
+.post-navigation {
+  margin: 20px 0;
+  clear: both;
+
+  a {
+    font-size: 0.9em;
+  }
+
+  .nav-previous, .nav-next {
+    width: 40%;
+  }
+
+  .nav-previous {
+    float: left;
+
+    a:before {
+      content: "←";
+    }
+  }
+
+  .nav-next {
+    text-align: right;
+    float: right;
+
+    a:after {
+      content: "→";
+    }
+  }
+}
+
+pre.highlight {
+  background-color: #f9f9f9;
+  padding: 1em;
+  border: 1px solid #f0f0f0;
+}
+
+table {
+  margin: 0 0 1.5em;
+  width: 100%;
+
+  th {
+    font-weight: bold;
+    padding: 4px 0;
+    border-bottom: solid 1px #ccc;
+    text-align: left;
+  }
+
+  td {
+    font-weight: 300;
+    padding: 4px 0;
+    border-bottom: solid 1px #eee;
+    vertical-align: baseline;
+  }
+
+  li {
+    font-weight: 300;
+  }
+}
