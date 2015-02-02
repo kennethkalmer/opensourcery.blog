@@ -2,23 +2,68 @@
 pageable: true
 per_page: 10
 ---
-<% if paginate && num_pages > 1 %>
-  <p>Page <%= page_number %> of <%= num_pages %></p>
 
-  <% if prev_page %>
-    <p><%= link_to 'Previous page', prev_page %></p>
+<%= partial "header" %>
+
+<main class="main_typesome" role="main">
+
+  <% page_articles.each_with_index do |article, i| %>
+
+		<article class="article_typesome">
+
+				<header class="postheader_typesome">
+					<ul>
+            <%# {{#if author.image}}<li><img class="author-thumb_typesome" src="{{author.image}}" alt="Author image" nopin="nopin" /></li>{{/if}} %>
+            <li class="name-thumb_typesome"><a href="/"><%= article.data[:author] %></a></li>
+						<li class="date_typesome"><time><%= article.date.strftime("%A %e %b %Y") %></time></li>
+            <%- tags = article.tags %>
+            <% if tags.any? %>
+						<li class="posttags_typesome">
+            <%= tags.join(', ') %>
+						</li>
+            <% end %>
+					</ul>
+
+					<h2 class="posttitle_typesome">
+            <%= link_to article.title, article, rel: "bookmark" %>
+					</h2>
+				</header>
+
+			<div class="postcontent_typesome">
+        <p><%= article.summary(250) %></p>
+			</div>
+
+			<footer class="excerptfooter_typesome" >
+				<section class="read_typesome">
+          <%= link_to "Read More", article, class: "more_typesome" %>
+					<span></span>
+          <a class="comments_typesome" href="<%= article.url %>#disqus_thread" data-disqus-identifier="<%= article.data[:disqus_identifier] %>">Comments</a>
+				</section>
+
+				<section class="share_typesome">
+					<h4>Share: &nbsp;</h4>
+          <a class="fa fa-twitter-square" target="_blank" href="http://twitter.com/share?text=<%= article.title %>&url=<%= article.url %>"><span class="hidden_typesome">Twitter</span></a>
+				  <a class="fa fa-facebook-square" target="_blank" href="http://www.facebook.com/sharer.php?u=<%= article.url %>"><span class="hidden_typesome">Facebook</span></a>
+				  <a class="fa fa-google-plus-square" target="_blank" href="https://plus.google.com/share?url=<%= article.url %>"><span class="hidden_typesome">Google+</span></a>
+				</section>
+			</footer>
+
+		</article>
   <% end %>
-<% end %>
 
-<% page_articles.each_with_index do |article, i| %>
-  <h2><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></h2>
-  <!-- use article.summary(250) if you have Nokogiri available to show just
-       the first 250 characters -->
-  <%= article.body %>
-<% end %>
-
-<% if paginate %>
-  <% if next_page %>
-    <p><%= link_to 'Next page', next_page %></p>
+  <% if paginate %>
+	  <div class="pagination_typesome">
+      <nav class="pagination" role="navigation">
+        <% if prev_page %>
+          <a class="newer-posts" href="<%= prev_page %>"><span class="fa fa-chevron-left"></span> Newer Posts</a>
+        <% end %>
+        <span class="page-number">Page <%= page_number %> of <%= num_pages %></span>
+        <% if next_page %>
+          <a class="older-posts" href="<%= next_page %>">Older Posts <span class="fa fa-chevron-right"></span></a>
+        <% end %>
+      </nav>
+    </div>
   <% end %>
-<% end %>
+</main>
+
+<% partial "footer" %>

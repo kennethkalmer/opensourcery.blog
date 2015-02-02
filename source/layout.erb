@@ -2,38 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <title>Blog Title<%= ' - ' + current_article.title unless current_article.nil? %></title>
+    <title><%= current_article.title + ' - '  unless current_article.nil? %>Open Sourcery</title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+    <meta name="twitter:site" content="@kennethkalmer">
+    <meta name="twitter:creator" content="@kennethkalmer">
+    <meta name="google-site-verification" content="">
+    <meta property="fb:admins" content="">
+    <link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic,700italic|Open+Sans:300,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag "style", "font-awesome.min", "code" %>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   </head>
-  <body>
+  <body class="home-template">
     <%= google_analytics_universal_tag %>
 
-    <div id="main" role="main">
-      <%= yield %>
-    </div>
+    <%= yield %>
 
-    <aside>
-      <h2>Recent Articles</h2>
-      <ol>
-        <% blog.articles[0...10].each do |article| %>
-          <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
-        <% end %>
-      </ol>
-
-      <h2>Tags</h2>
-      <ol>
-        <% blog.tags.each do |tag, articles| %>
-          <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
-        <% end %>
-      </ol>
-
-      <h2>By Year</h2>
-      <ol>
-        <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
-          <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
-        <% end %>
-      </ol>
-    </aside>
+    <%= javascript_include_tag "jquery", "jquery.fitvids", "index" %>
   </body>
 </html>
