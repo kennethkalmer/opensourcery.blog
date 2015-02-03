@@ -12,7 +12,7 @@ activate :blog do |blog|
   # Matcher for blog source files
   # blog.sources = "{year}-{month}-{day}-{title}.html"
   blog.taglink = "tag/{tag}.html"
-  # blog.layout = "layout"
+  blog.layout = "post"
   # blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
   # blog.year_link = "{year}.html"
@@ -24,8 +24,8 @@ activate :blog do |blog|
   blog.calendar_template = "calendar.html"
 
   # Enable pagination
-  # blog.paginate = true
-  # blog.per_page = 10
+  blog.paginate = true
+  blog.per_page = 10
   # blog.page_link = "page/{num}"
 end
 
