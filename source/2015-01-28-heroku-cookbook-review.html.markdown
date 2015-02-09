@@ -10,7 +10,7 @@ disqus_identifier: "http://www.opensourcery.co.za/20150128.1"
 ---
 
 <em>
-tl;dr - Get a copy of the excellent [Heroku Cookbook by Mke Coutermarsh](http://bit.ly/1vLijZn) and learn a few tricks about getting the most from your Rails/Rack applications on Heroku
+tl;dr - Get a copy of the excellent [Heroku Cookbook by Mike Coutermarsh](http://bit.ly/1vLijZn) and learn a few tricks about getting the most from your Rails/Rack applications on Heroku
 </em>
 
 I've been a closet fan of [Heroku](http://heroku.com) for years now, always being envious of developers who could just `git push` and stroll over to the coffee machine while the magic happens.
