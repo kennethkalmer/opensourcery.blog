@@ -31,6 +31,12 @@ end
 
 page "/feed.xml", layout: false
 
+# .htaccess love
+page "/.htaccess.html", layout: false
+after_build do
+  File.rename 'build/.htaccess.html', 'build/.htaccess'
+end
+
 ###
 # Compass
 ###
