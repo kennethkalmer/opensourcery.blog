@@ -6,7 +6,7 @@ tags:
   - book review
 author: Kenneth Kalmer
 disqus_identifier: "http://www.opensourcery.co.za/20150128.1"
-
+image: 2015-01-28-heroku-cookbook-review/paarden-eiland-containers.jpg
 ---
 
 <em>
