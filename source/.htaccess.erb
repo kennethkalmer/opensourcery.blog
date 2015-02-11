@@ -3,6 +3,9 @@ directory_index: false
 ---
 
 # MOVE PERMANENTLY
+Redirect 301 /powerdns-on-rails/ https://github.com/kennethkalmer/powerdns-on-rails
+Redirect 301 /bind-dlz-on-rails/ https://github.com/kennethkalmer/bind-dlz-on-rails
+Redirect 301 /activerecordtableless/ https://github.com/kennethkalmer/activerecord-tableless-models
 <% data.htaccess.redirect.each do |old, new| %>
 Redirect 301 <%= old %> <%= data.htaccess.web.url %><%= new %>
 <% end %>

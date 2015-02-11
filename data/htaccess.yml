@@ -5,6 +5,7 @@ web:
 redirect:
   /feed/rss/: /feed.xml
   /feed/: /feed.xml
+  '"/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/ here"': /2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/
 
 cache:
   deflate: \\.(js|css|html|ico|png)$
