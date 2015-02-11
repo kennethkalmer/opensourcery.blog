@@ -116,6 +116,10 @@ set :js_dir, 'javascripts'
 
 set :images_dir, 'images'
 
+# Search engine sitemap
+set :url_root, "http://www.opensourcery.co.za"
+activate :search_engine_sitemap
+
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment

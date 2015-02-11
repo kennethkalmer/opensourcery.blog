@@ -8,6 +8,7 @@ gem "middleman-livereload", "~> 3.3.0"
 gem "middleman-disqus", "~> 1.0.0"
 gem "middleman-google-analytics", "~> 1.0.2"
 gem "middleman-syntax", "~> 2.0.0"
+gem 'middleman-search_engine_sitemap', "~> 1.3.0"
 
 # For feed.xml.builder
 gem "builder", "~> 3.0"
