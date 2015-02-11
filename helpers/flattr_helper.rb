@@ -2,9 +2,11 @@ module FlattrHelper
 
   def flattr_article( article )
     url = [ "http://www.opensourcery.co.za", article.url ].join
+    title = article.data["title"]
+    lang = article.respond_to?(:lang) ? article.lang : "en-gb"
 
     options = {
-      user_id: "kennethkalmer", url: url, title: article.title, language: article.lang
+      user_id: "kennethkalmer", url: url, title: title, language: lang
     }
 
     content_tag 'div', class: 'flattr-button' do
