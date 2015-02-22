@@ -57,11 +57,11 @@ change_frequency: daily
 	  <div class="pagination_typesome">
       <nav class="pagination" role="navigation">
         <% if prev_page %>
-          <a class="newer-posts" href="<%= prev_page %>"><span class="fa fa-chevron-left"></span> Newer Posts</a>
+          <a class="newer-posts" href="<%= prev_page.url %>"><span class="fa fa-chevron-left"></span> Newer Posts</a>
         <% end %>
         <span class="page-number">Page <%= page_number %> of <%= num_pages %></span>
         <% if next_page %>
-          <a class="older-posts" href="<%= next_page %>">Older Posts <span class="fa fa-chevron-right"></span></a>
+          <a class="older-posts" href="<%= next_page.url %>">Older Posts <span class="fa fa-chevron-right"></span></a>
         <% end %>
       </nav>
     </div>
