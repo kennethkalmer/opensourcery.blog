@@ -12,6 +12,8 @@ tags:
 disqus_identifier: '296 http://www.opensourcery.co.za/?p=296'
 ---
 
+**UPDATE: Hoptoad was re-branded to [Airbrake Bug Tracker][5] since this post was originally written.**
+
 One of the things that makes [daemon-kit][1] such a great project (at least to me), is the built-in &#8220;safely&#8221; method wraps your code in a loving embrace of error reporting comfort. You could at any point do this:
 
 ~~~ruby
@@ -30,3 +32,4 @@ I&#8217;ll expand on it in the coming days, and then tend to the daemon-kit fork
  [2]: http://github.com/kennethkalmer/safely
  [3]: http://www.hoptoadapp.com/
  [4]: http://github.com/toolmantim/toadhopper
+ [5]: https://airbrake.io
