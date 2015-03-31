@@ -6,24 +6,17 @@
     <title><%= current_page.data["title"] %> | Open Sourcery Archives</title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <%= stylesheet_link_tag 'retro', 'code' %>
+    <meta name="twitter:site" content="@kennethkalmer">
+    <meta name="twitter:creator" content="@kennethkalmer">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   </head>
   <body class="retro">
     <%= google_analytics_universal_tag %>
 
     <div class="page-header">
       <h1>Open Sourcery Archives</h1>
-    </div>
-
-    <div class="archive-intro">
-      <p>
-        Welcome to the Open Sourcery Archives. These are my older blog posts, from days
-        gone by. I'm keeping them up as part of the historical record. That, and I'm
-        strangely sentimental about them.
-        Please keep in mind that things most certainly have changed since these articles
-        were written, links to external sites might be broken, and general thinking might
-        have changed.
-      </p>
-      <p>Regardless of all this, I hope you enjoy your stay!</p>
     </div>
 
     <div id="main" role="main">
@@ -39,6 +32,18 @@
 
         <%= flattr_article(current_page) %>
       </article>
+
+      <div class="what-the-archive">
+        <p>
+          Welcome to the Open Sourcery Archives. These are my older blog posts, from days
+          gone by. I'm keeping them up as part of the historical record. That, and I'm
+          strangely sentimental about them.
+          Please keep in mind that things most certainly have changed since these articles
+          were written, links to external sites might be broken, and general thinking might
+          have changed.
+        </p>
+        <p>Regardless of all this, I hope you enjoy your stay!</p>
+      </div>
 
       <% if current_article %>
       <nav role="navigation" class="post-navigation">

@@ -43,10 +43,10 @@ p, li {
   font-family: 'PT Serif', serif;
 }
 
-.page-header, .archive-intro, #main, aside {
+.page-header, #main, aside {
   background-color: rgba(255,255,255,0.4);
   padding: 10px;
-  width: 960px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -54,7 +54,7 @@ p, li {
   padding-bottom: 0;
 
   h1 {
-    font-size: 48px;
+    font-size: 2em;
     text-align: center;
     font-family: 'Merriweather', serif;
     font-weight: 300;
@@ -62,16 +62,28 @@ p, li {
     border-bottom: 1px solid #111;
     line-height: 60px;
     margin: 10px 0;
+
+  }
+
+  @media screen and (max-width: 360px) {
+    padding-top: 0;
+
+    h1 {
+      font-size: 1.2em;
+      line-height: 1.5em;
+    }
   }
 }
 
-.archive-intro {
-  padding-top: 0;
+.what-the-archive {
+  padding: 10px 0;
+  margin: 10px 0;
+  border-top: 1px solid rgba(100,0,0,0.4);
   border-bottom: 1px solid rgba(100,0,0,0.4);
 
   p {
     color: rgba(75,0,0,0.6);
-    font-size: 16px;
+    font-size: 0.9em;
     font-weight: 300;
     margin: 3px 0;
   }
@@ -86,6 +98,18 @@ header {
     display: block;
     font-size: 0.4em;
     color: #555;
+  }
+
+  @media (max-width: 360px) {
+    font-size: 1.5em;
+
+    time {
+      font-size: 0.6em;
+
+      &:before {
+        content: "Published on ";
+      }
+    }
   }
 }
 
