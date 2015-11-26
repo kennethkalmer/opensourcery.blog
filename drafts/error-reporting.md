@@ -1,10 +1,12 @@
+![](homer_the_new_fail_whale_by_edwheeler.jpg)
+
 # Error reporting and building hoverboards
 
 October 21st came and went. We still don’t have hoverboards. But all is not lost! We can still embrace hoverboards, at least as a metaphor for having a **frictionless software development lifecycle**.
 
 The hoverboard metaphor came to be as I presented to team at work the idea of a frictionless SDLC.
 
-For me this means removing the friction between the software, the team, and the leadership. An overreaching statement would be that most problems software faces is in fact people problems. One of those problems can be attributed to the fact that business tends to have clear goals, budgets, KPI’s, and a variety of other metrics that can measured.
+For me this means removing the friction between the software, the team, and the leadership. An overreaching statement would be that most problems software faces are in fact people problems. One of those problems can be attributed to the fact that business tends to have clear goals, budgets, KPI’s, and a variety of other metrics that can measured over time.
 
 A lot of _soft_ issues in software doesn’t fit well into these metrics, so they get pushed to the wayside. Testing, refactoring, and general project hygiene tend to suffer because it is difficult to measure.
 
@@ -12,7 +14,7 @@ Also couple the fact that most modern software projects start off using a framew
 
 I’ve heard, and now seen first-hand, how software teams get held hostage because in the recent past they delivered features at a certain rate, and when the wheels come off nobody understands what is going on. This can be attributed to the lack of communication between the software and its creators, and between the creators and the business. There are simply no metrics.
 
-This can often start a toxic circle of events that isn’t healthy for anyone on the team. Ultimately this leads to the classic rewrite, because, we can now have new tools that make things fast again and we’ll be in the same happy place we were when the project started. And now you have more problems.
+This can often start a toxic circle of events that isn’t healthy for anyone on the team. Ultimately this leads to the classic rewrite, because, we can now have new tools that make things fast again and we’ll be in the same happy place we were when the project started. And now you have more problems. Joel Spolsky wrote a seminal piece on [Things you should never do](http://www.joelonsoftware.com/articles/fog0000000069.html), and that is rewrite your software.
 
 There are various ways to combat this, various ways to embrace the wheels falling off, because without wheels you could have a hoverboard under your feet. I prefer this to a jack-knifed truck, in what feels like rush hour traffic.
 
@@ -22,7 +24,7 @@ So, lets start at the beginning…
 
 # Leaving the nest
 
-Truth be told, software is unreliable. No matter our best intentions when creating any software, it ends up behaving in unexpected and wonderful ways once it leaves the nest. Just like any living thing entering the real world, we could not possibly prepare our creation adequately for what lies ahead. The real world is wild, dangerous, and full of unintended interactions and consequences.
+Truth be told, software is unreliable. No matter our best intentions when creating any software, it ends up behaving in unexpected and wonderful ways once it leaves the nest. Just like any living thing entering the real world, we could not possibly have prepared our creation adequately for what lies ahead. The real world is wild, dangerous, and full of unintended interactions and consequences.
 
 So how do we keep an eye on our fledgeling? How do we make sure it is safe and can handle the onslaught of entropy? How can we, as responsible creators, react when our code is struck down by the hardships of production life?
 
@@ -34,11 +36,11 @@ There is a slight nuance to point out here. Although logging is important, I’m
 
 I consider good logging as effective as a [RECCO](https://en.wikipedia.org/wiki/RECCO) transmitter in times of emergencies. If nobody on the team knows that there was an avalanche, then nobody will go out to search for these signals to pin point what went wrong.
 
-When I say _give it a lifeline_, I mean give your software a way to notify you immediately. Something instant, something realtime. When you have this more realtime connection with your creations you can quickly react when they are in distress and take the appropriate action.
+When I say _give it a lifeline_, I mean give your software a way to notify you immediately. Something instant, something near realtime. When you have this near realtime connection with your creations you can quickly react when they are in distress and take the appropriate action.
 
 Coincidentally, with a lifeline you can start responding to issues before any upset customers start calling. By the time a call does get through to you, instead of being surprised you can provide useful feedback and an ETA for a fix, assuming the failure isn’t completely catastrophic.
 
-Just think for a moment how rarely you contact other services when they fail. You retry, and if it doesn’t work you might try again much later or completely abandon using the service altogether. Imagine how bad the failure must be before you’d pick up the phone to contact their support. Turn this around, how many users have you lost before someone picked up the phone?
+Just think for a moment how rarely you contact other services when they fail. You retry, and if it doesn’t work you might try again much later or completely abandon using the service altogether. Imagine how bad the failure must be before you’d pick up the phone to contact their support. Turn this around, how many users have you lost before someone picked up their phone?
 
 These lifelines are extremely important, and they can be extended to be a lifeline between software developers and business.
 
@@ -60,7 +62,7 @@ These quantifiable metrics should have the intended consequence of leading towar
 
 Over time the unpleasantness of these tests will lead to refactoring and improving the design of the code.
 
-I use unpleasantness in the broadest sense of the word here. To me it means in the beginning you’re going to be forced to get to grips with your testing harness, spending a lot of time just getting the first failure. You’ll be faced with a lot of unknown unknowns, but push through. The first tests that emerge would probably be slower integration style tests until you get through a few rounds of refactoring to break down the coupling in your system. 
+I use unpleasantness in the broadest sense of the word here. To me it means in the beginning you’re going to be forced to get to grips with your testing harness, spending a lot of time just getting the first failure. You’ll be faced with a lot of unknown unknowns, but push through. The first tests that emerge would probably be slower integration style tests until you get through a few rounds of refactoring to break down the coupling in your system. These first tests should deliver plenty of _”aha moments”_. 
 
 It is akin to starting your first “couch to 5K”. You have to walk before you can run, and while your getting used to running you’ll be doing a lot of walking in between. At the end of it though, you’ll be fitter, and so will your creations. They’ll grow ready for the onslaught of production life and emerge champions.
 
@@ -80,33 +82,41 @@ Secondly, what if your email service is unavailable or misconfigured? Your lifel
 
 Lastly, good reporting. It is hardly a trivial task to do any kind of reporting or aggregations from a mailbox. Over time you’d want to know which errors occurred more frequently so you could help your software face its most daunting challengers first. You also want to know about regressions, just in case you didn’t cover all the possible permutations of the previously painful encounter.
 
+# Solicit multiple points of view
+
+Useful reporting on top of a collection of errors can also be combined with other static analysis tools to identify hotspots in the code that are prone to generating errors. Static analysis doesn’t always get is right when measuring different metrics, but combining the results of static analysis tools like [Code Climate](https://www.codeclimate.com) or [SonarQube](http://www.sonarqube.org) with the location of an exception can serve as an additional guide for refactoring. 
+
+Just like errors guide tests, they could also guide which quality concerns you choose to address first.
+
+Resist the temptation to just refactor wildly though, first get that failing test in place and get it fixed, along with one or two other tests that show the happy path.
+
 # Enter error reporting services
 
 This market has been steadily growing over the years, with both hosted services and open-source alternatives vying for the attention of your creations.
 
 After I was drowned out by emails generated by the [exception_notification](https://github.com/smartinez87/exception_notification) plugin in my first Rails applications, I switched to [Airbrake](https://www.airbrake.io) (then named Hoptoad). This was a spectacular win for me and my team at the time. The Airbrake client collected a huge amount of additional context for us, including things like the user’s ID from the session. That meant we could proactively reach out to the client about the error they experienced. We could also see how frequently errors occurred, reoccurred, and when we had regressions.
 
-At some point the free plan disappeared and I went looking for alternatives. I’ve since found, and fallen in love with, [Sentry](http://getsentry.com).
+At some point the free plan disappeared and I went looking for alternatives. I’ve since found, and fallen in love with, [Sentry](http://getsentry.com). That said, I still have two projects using Airbrake and it is very reliable.
 
 ## Sentry
 
-Sentry has a great set of features, and is quite simple to deploy locally. They also offer a commercial service, which I’ve never used before.
+[Sentry](https://getsentry.com) has a great set of features, and is quite simple to deploy locally. They also offer a commercial service, which I’ve never used before.
 
 As far as a self-hosted Sentry goes, I’ve been deploying it with Docker lately. One instance with [fleet on CoreOS](https://coreos.com/using-coreos/clustering/) and another with [Kubernetes](http://www.kubernetes.io). Using the official [Sentry container](http://hub.docker.com/_/sentry) is a breeze, and they detail all the dependencies you need to get going. I’ve tried installing it on Heroku, but this felt like a hack and a little dishonest for my taste. I also know now that a regular dyno is not qualified to run Sentry.
 
-Sentry ticks the most important boxes for me when it comes to error reporting. It has good notification plugins, so apart from  email we get notified right in Slack. All manner of other integrations are also possible, including HipChat, Trello, Pivotal Tracker.
+Sentry ticks the most important boxes for me when it comes to error reporting. It has good notification plugins, so apart from  email we get notified right in Slack. All manner of other integrations are also possible, including HipChat, Trello, and Pivotal Tracker.
 
 So with the reporting and notification services provided, how do you get about sending errors to Sentry?
 
 ## Raven
 
-The Sentry clients are aptly called Raven. Most of the Raven clients have the same baseline features:
+Sentry clients are aptly called [Raven](https://github.com/getsentry?utf8=%E2%9C%93&query=raven). Most of the Raven clients have the same basic features:
 
 * Capture a message
 * Capture an exception
 * Capture an exception with a richer context
 
-Some clients really tap deep into the applications which contain them. The [sentry-raven](https://rubygems.org/gem/sentry-raven) Ruby gem for instance will extract all the session and parameters and include them with the error reports. The [raven](https://grails.org/plugins/raven) Grails plugin does something similar, and also includes a log4j appender which will report entries at certain log-levels to Sentry by default.
+Some clients really tap deep into the applications which host them. The [sentry-raven](https://rubygems.org/gem/sentry-raven) Ruby gem for instance will extract all the session and parameters and include them with the error reports. The [raven](https://grails.org/plugins/raven) Grails plugin does something similar, and also includes a log4j appender which will report entries at certain log-levels to Sentry by default.
 
 There is fairly good support for handling JavaScript errors too, just don’t ever attach to to `window.onerror`, you’ll get a lot of noise from broken browser extensions/plugins. It is also recommended by most error reporting services that you keep your JavaScript reporting in a separate project, with different notification thresholds and whitelists of acceptable errors.
 
@@ -117,7 +127,7 @@ Good context is key to converting errors from noise to signal. Different Raven c
 Sentry supports tagging at three levels:
 
 * Environment (client level): tag your environment name so you can distinguish production from pre-production
-* Thread (block level)
+* Thread (block level): collate all errors in the same request/job
 * Event (as part of the capture)
 
 All the tags will get rolled up and combined when capturing a message/exception.
@@ -134,11 +144,11 @@ Ever since I used Hoptoad, now Airbrake, a lot of services have cropped up in th
 
 There are a lot of exception handling services to choose from. The best is probably to look at what your community is using so you can get some reasonable support beyond what commercial support can provide.
 
-Some performance monitoring services, including New Relic, include error monitoring as part of their performance instrumentation. I’ve never liked that, but it that is just my style.
+Some performance monitoring services, including New Relic, include error monitoring as part of their performance instrumentation. I’ve never liked services that combined these metrics, but it that is just my style.
 
-Beware though in this polyglot age to pick service that only caters to one technology. Even projects like Sentry cannot cover all technologies, but at least they have a [client API](https://docs.getsentry.com/on-premise/clientdev/) you could use to roll your own. Heck, an unofficial client in your own language might just be a great first open source project to start! The docs offer some excellent guidelines for writing your own Raven client, including handling the cases when Sentry itself is unavailable, and performing non-blocking submissions.
+Beware though in this polyglot age to pick service that only caters to one technology. Even projects like Sentry cannot cover all technologies, but at least they have a [client API](https://docs.getsentry.com/on-premise/clientdev/) you could use to roll your own. Heck, an unofficial client in your own language, or framework, might just be a great first open source project to start! The docs offer some excellent guidelines for writing your own Raven client, including handling the cases when Sentry itself is unavailable, and performing non-blocking submissions.
 
-A non-exhaustive list I know off, mostly through my days of programming Ruby before I discovered Sentry, include: [Exceptional](https://www.exceptional.io), [Rollbar](http://rollbar.com), [Honeybadger](http://www.honeybadger.io), [TrackJS](https://trackjs.com), [NewRelic](https://newrelic.com), [AppSignal](https://appsignal.com), and of course [Airbrake](https://www.airbrake.io). There will be many more to choose from.
+A non-exhaustive list I know off, mostly through my days of programming Ruby, include: [Exceptional](https://www.exceptional.io), [Rollbar](http://rollbar.com), [Honeybadger](http://www.honeybadger.io), [TrackJS](https://trackjs.com), [NewRelic](https://newrelic.com), [AppSignal](https://appsignal.com), and of course [Airbrake](https://www.airbrake.io). There will be many more to choose from.
 
 Also consider if you want to roll up performance and exception monitoring in one service, and be careful to not get distracted by the all the shiny graphs and metrics that come with performance monitoring.
 
@@ -146,12 +156,21 @@ Godfrey Chan wrote a great post, [The Log-Normal Reality](http://blog.skylight.i
 
 # Closer to hoverboards
 
-In closing, a good lifeline provides:
+In closing, get those lifelines in place! To me the initial effort can definitely quality as a case of _”better to ask forgiveness than permission”_. The return on investment will be instant once you have it deployed.
+
+Just to recap, a good lifeline provides:
 
 * Measurable metrics for improving code quality, reliability and stability
 * Metrics that can be used to apply some back pressure to the flow of features and gain valuable time for refactoring
 * Can pro-actively reach out to affected customers and mend relationships
 * Early warning system for regressions
 * Guidance for starting with, or improving existing testing practices
+* Compliment to static analysis tools and practices
 
 It will only take a few minutes to start experimenting with error reporting and setting up crucial lifelines between you and your creations, so get going!
+
+If I missed any noteworthy error reporting services, please share them in the comments so everyone could benefit
+
+
+
+Cover image by [Ed Wheeler](http://edwheeler.deviantart.com/art/Homer-the-New-Fail-Whale-117740188). Early feedback provided by \<your name here\>.
