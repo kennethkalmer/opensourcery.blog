@@ -102,7 +102,7 @@ At some point the free plan disappeared and I went looking for alternatives. I�
 
 [Sentry](https://getsentry.com) has a great set of features, and is quite simple to deploy locally. They also offer a commercial service, which I’ve never used before.
 
-As far as a self-hosted Sentry goes, I’ve been deploying it with Docker lately. One instance with [fleet on CoreOS](https://coreos.com/using-coreos/clustering/) and another with [Kubernetes](http://www.kubernetes.io). Using the official [Sentry container](http://hub.docker.com/_/sentry) is a breeze, and they detail all the dependencies you need to get going. I’ve tried installing it on Heroku, but this felt like a hack and a little dishonest for my taste. I also know now that a regular dyno is not qualified to run Sentry.
+As far as a self-hosted Sentry goes, I’ve been deploying it with Docker lately. One instance with [fleet on CoreOS](https://coreos.com/using-coreos/clustering/) and another with [Kubernetes](http://www.kubernetes.io). Using the official [Sentry container](http://hub.docker.com/_/sentry) is a breeze, and they detail all the dependencies you need to get going. I’ve tried installing it on Heroku, but this felt like a hack and a little dishonest for my taste. I also know now that a [regular dyno](https://devcenter.heroku.com/articles/dynos#dynos) is not qualified to run Sentry.
 
 Sentry ticks the most important boxes for me when it comes to error reporting. It has good notification plugins, so apart from  email we get notified right in Slack. All manner of other integrations are also possible, including HipChat, Trello, and Pivotal Tracker.
 
@@ -173,4 +173,4 @@ If I missed any noteworthy error reporting services, please share them in the co
 
 
 
-Cover image by [Ed Wheeler](http://edwheeler.deviantart.com/art/Homer-the-New-Fail-Whale-117740188). Early feedback provided by \<your name here\>.
+Cover image by [Ed Wheeler](http://edwheeler.deviantart.com/art/Homer-the-New-Fail-Whale-117740188). Thanks to the early reviewers of this post.
