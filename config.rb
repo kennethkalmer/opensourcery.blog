@@ -37,6 +37,11 @@ after_build do
   File.rename 'build/.htaccess.html', 'build/.htaccess'
 end
 
+# https://github.com/middleman/middleman/issues/1243#issuecomment-39356604
+config.ignored_sitemap_matchers[:source_dotfiles] = proc { |file|
+  file =~ %r{/\.} && file !~ %r{/\.(well-known|htaccess|htpasswd|nojekyll)}
+}
+
 ###
 # Compass
 ###

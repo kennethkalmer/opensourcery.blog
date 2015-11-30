@@ -1,0 +1,66 @@
+==================================================================
+https://keybase.io/kennethkalmer
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.opensourcery.co.za
+  * I am kennethkalmer (https://keybase.io/kennethkalmer) on keybase.
+  * I have a public key with fingerprint 9970 D42A 6E04 2612 1DD0  BF99 7EC6 DBDB 18C5 AFDD
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "9970d42a6e0426121dd0bf997ec6dbdb18c5afdd",
+            "host": "keybase.io",
+            "key_id": "7ec6dbdb18c5afdd",
+            "uid": "b024708ae9c3ccfc10887b08d05b8100",
+            "username": "kennethkalmer"
+        },
+        "service": {
+            "hostname": "www.opensourcery.co.za",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1418989983,
+    "expire_in": 157680000,
+    "prev": "5630b3e4484d049dd5706d462a1c0033f9178a91018fdfdaf67b4694b3292d84",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.1.6
+Comment: https://keybase.io/crypto
+
+yMHzAnicbZFdSBRRGIZ3Sy0XfzJwKSKQIaJ0287s/G8FRUqtUBBs2sLWMjPnjDuo
+M+vs7K4m6pUR3UhpUPgTaRdmaBbBKtZSS2FQYBJEWUpmKIYpJRkoRjOL3XVuDuf9
+3vf5zjnf8+zNFpt1LzN+4Hxg/a311TNLxOJty7tVjwkqrMPc9VglSm2SrFQgLaTJ
+io65MY5jACRdPI0A6aJxFw4hECRDRSINBSjgrEjxEoSYAwuqYTNhYAQ+jJyyamjG
+ISBDQ/2PP5IqCMBFMoDlEScSoiiJOGBZRgAsBJTA4gCYxjDSFL4apeCKgvRgJV9V
+jTSswYEZpagsIvPiZv8NWywWc6ohpITViCYirc4pqs6LvIEKaaquimqV4Qnqesht
+IvS6UCqDhMAGLSDICjS+wQhEkRaWVQVz44ZT1GUTj5M4y7EcxxIODNWGZA0FZNNB
+MTQLjGW2QVEDSdEEEAhEkiwJAclBSDGAhiTt4nERAIKQOJxheQ4HOCtBCfISzQgk
+zZEC4eJckCUx8301ioq5jU46X2Egw3KFwusRDWENyaf+NIvVZslI32QO0mLL3PZv
+vKXRLX8KlXn7+5abq32H1iZ7Tk7lZHeU79y/Uo9PjU8nv6Z74+3+Oc/s0dzepdWV
+WG1hB2zq/jHyYXro+FBzX9PszO2W0slfWT9b0uzvGmeu9I8VeoK5ZxK0Xy77OLhK
+1djY9tejgnCiOzy9drX2RZwY6Lx3rXSitcc/eHckWFJUtpwHoO2Br0C9sdAJGm1d
+nY3Fv32UZSV/3/rBY2+4grmi4rNuOZQYSGY9+nY65H3s+IT5qjJbxYC1+styYnfc
+48uZp/JnTxGXkpXD23vP9d1xZI92LSaWtq6/tHsyM9q+xxeKLyx+XhJ2PbyfXn75
+cP8eu1cpmT/Sdn1i7Mlw846/zVQc+g==
+=hIir
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/kennethkalmer
+
+==================================================================
+
