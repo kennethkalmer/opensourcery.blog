@@ -39,15 +39,15 @@ For the examples below I’m going to be working with some invoice data. Each in
 
 I’ll leave it up to you to imagine how rich these data structures can become in a real invoicing system.
 
-## Getting started with (sort-by)
+## Getting started with `sort-by`
 
-The first requirement could be to sort a vector of invoices by total. These is relatively simple with `(sort-by)`:
+The first requirement could be to sort a vector of invoices by total. These is relatively simple with `sort-by`:
 
 ```clojure
 (sort-by :invoice/total-before-tax invoices)
 ```
 
-The first argument to `(sort-by)` should be function, and since keywords are functions of maps you can just specify the key in the map to be used. One caveat, the value of the entry in the map must be comparable.
+The first argument to `sort-by` should be function, and since keywords are functions of maps you can just specify the key in the map to be used. One caveat, the value of the entry in the map must be comparable.
 
 That gets you a new vector, with the smallest invoices first and the valuable ones at the end. Hardly useful for business, so lets flip it around by supplying a comparator function too:
 
@@ -55,7 +55,11 @@ That gets you a new vector, with the smallest invoices first and the valuable on
 (sort-by > :invoice/total-before-tax invoices)
 ```
 
-Now we’re cooking with gas! The most valuable invoices are now at the head of the list! Need the top 10? Just `(take 10)` and you’re set.
+Now we’re cooking with gas! The most valuable invoices are now at the head of the list! Need the top 10? Just `take` what you need:
+
+```clojure
+(take 10 (sort-by > :invoice/total-before-tax invoices))
+```
 
 How did this happen? Clojure compared the values returned by `:invoice/total-before-tax` using the `>` function.
 
@@ -63,16 +67,16 @@ How did this happen? Clojure compared the values returned by `:invoice/total-bef
 
 The next requirement might be to sort by `:invoice/number` and `:invoice/total-before-tax`. Imagine the idea is that when two invoices have the same total that they are then sorted by their invoice number to show some kind of implied order.
 
-This is where our friend `(juxt)` comes in. `(juxt)` accepts a list of functions and returns a new function, that when called, returns the results of all the original functions in a vector.
+This is where our friend `juxt` comes in. `juxt` accepts a list of functions and returns a new function, that when called, returns the results of all the original functions in a vector.
 
 ```clojure
-(def head-and-tail (juxt [first last]))
+(def head-and-tail (juxt first last))
 (head-and-tail [1 2 3 4 5]) #=> [1 5]
 ```
 
-Here you can see that juxt applied `(first)`, and `(last)`, to the supplied list of numbers and gave us the head and the tail of the list. Keen readers might have just figured out where I’m going with this.
+Here you can see that juxt applied `first`, and `last`, to the supplied list of numbers and gave us the head and the tail of the list. Keen readers might have just figured out where I’m going with this.
 
-`(sort-by)` can compare these vectors too, so we can sort our invoices like this:
+`sort-by` can compare these vectors too, so we can sort our invoices like this:
 
 ```clojure
 (def total-before-tax-and-number (juxt :invoice/total-before-tax :invoice/number))
@@ -85,7 +89,7 @@ Now the results will be sorted from lowest value invoice to the highest, with th
 
 The results of the previous example doesn't make much sense. How can we combine sorting the invoice amounts in descending order _and_ have the invoice numbers run sequentially when there is an overlap?
 
-One possible solution is to use `(comp)`, and make a new function that will return the value of `:invoice/total-before-tax` as a negative number. `(comp)` works by accepting a list of functions and returning a new function, which when called, calls the arguments from right to left and passing the result of the previous call to the next one, starting with the parameter when called.
+One possible solution is to use `comp`, and make a new function that will return the value of `:invoice/total-before-tax` as a negative number. `comp` works by accepting a list of functions and returning a new function, which when called, calls the arguments from right to left and passing the result of the previous call to the next one, starting with the parameter when called.
 
 An example will be worth a thousand words:
 
@@ -99,14 +103,16 @@ An example will be worth a thousand words:
 (str/reverse (str/upper-case "elloh")) => "HELLO"
 ```
 
-In order to get the negative total we can just `(comp)` together `(-)` and `:invoice/total-before-tax` like this:
+In order to get the negative total we can just `comp` together `-` and `:invoice/total-before-tax` like this:
 
 ```clojure
 (def negative-total (comp - :invoice/total-before-tax))
 (negative-total invoice) #=> -100
 ```
 
-And using our new friend `(juxt)` we can simply roll it up like this:
+If this right-to-leftness of `comp` bothers you, you could also simply declare it as an anonymous function which wraps a thread-first functional pipeline: `#(-> % :invoice/total-before-tax -)`.
+
+And using our new friend `juxt` we can simply roll it up like this:
 
 ```clojure
 (def negative-total-and-number (juxt negative-total :invoice/number))
@@ -115,7 +121,7 @@ And using our new friend `(juxt)` we can simply roll it up like this:
 
 And now we have a list of invoices sorted by total from most to least valuable, and where the totals match the invoice numbers follow a progression.
 
-Another variation would be to sort by number of items on an invoice. This can be achieved by composing `(count)` and `:invoice/items` together:
+Another variation would be to sort by number of items on an invoice. This can be achieved by composing `count` and `:invoice/items` together:
 
 ```clojure
 (sort-by (comp count :invoice/items) > invoices)
@@ -129,9 +135,13 @@ _Which structures can't be sorted like this? Does this section even matter._
 
 ## Wrapping up
 
-Although my examples are a bit contrived, the power that comes from composing functions in these intuitive ways are nearly endless. This works equally well for predicate functions used by `(filter)`, `(remove)` and many others.
+Although my examples are a bit contrived, the power that comes from composing functions in these intuitive ways are nearly endless. This works equally well for predicate functions used by `filter`, `remove` and many others.
 
 It seems many small and composable functions will end up serving you better in the long run!
+
+## Thanks
+
+A big thanks for [Robert Stuttaford](http://www.stuttaford.me/) for helping to [review this post](https://github.com/kennethkalmer/opensourcery.co.za/pull/2)
 
 # References & further reading
 
