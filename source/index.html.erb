@@ -15,9 +15,8 @@ change_frequency: daily
 
 				<header class="postheader_typesome">
 					<ul>
-            <%# {{#if author.image}}<li><img class="author-thumb_typesome" src="{{author.image}}" alt="Author image" nopin="nopin" /></li>{{/if}} %>
-            <li class="name-thumb_typesome"><a href="/"><%= article.data[:author] %></a></li>
 						<li class="date_typesome"><time><%= article.date.strftime("%A %e %b %Y") %></time></li>
+            <li class="readtime_typesome"><%= reading_time article.body %></li>
             <%- tags = article.tags %>
             <% if tags.any? %>
 						<li class="posttags_typesome">

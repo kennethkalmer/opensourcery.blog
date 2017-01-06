@@ -15,14 +15,14 @@
     8.  Single Post - post.hbs
     9.  Third Party Elements -> post.hbs
    10.  Comments - Disqus
-   11.  Author Page    
+   11.  Author Page
    12.  Media Queries (Tablet)
    13.  Media Queries (Phone)
 
  */
- 
+
  /* ==========================================================================
-   					            0. Includes 
+   					            0. Includes
    ========================================================================== */
 
 @import url(normalize.css);
@@ -46,14 +46,14 @@ body {
     color: #383838;
 	background: #fff;
 	}
-	
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
 	text-rendering: optimizelegibility;
 	line-height: 1;
-	}	
-	
+	}
+
 ::-moz-selection {
     color: #222;
     background: #D6EDFF;
@@ -82,15 +82,15 @@ a {
     color: #383838;
     transition: all ease 0.3s;
 	}
-	
+
 a:visited { outline: none; }
 
 a:hover {
     color: #5BA4E5;
-	}	
-		
-a:active { outline: none; }	
-	
+	}
+
+a:active { outline: none; }
+
 a:focus { outline: none; }
 
 h1 a, h2 a, h3 a,
@@ -135,7 +135,7 @@ hr {
 
 img {
     border: 0;
-}	
+}
 
 .postcontent_typesome img {
 	display: block;
@@ -143,8 +143,8 @@ img {
 	height: auto;
 	margin: 0 auto;
     padding: 0.6em 0;
-	} 
-	
+	}
+
 blockquote {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -222,8 +222,8 @@ kbd {
     font-weight: bold;
     background: #f4f4f4;
     border-radius: 4px;
-    box-shadow: 
-        0 1px 0 rgba(0, 0, 0, 0.2), 
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.2),
         0 1px 0 0 #fff inset;
 	}
 
@@ -291,22 +291,22 @@ margin on the iframe, cause it breaks stuff. */
     visibility: hidden;
     display: none;
 	}
-		
+
 .vertical {
     display: table-cell;
     vertical-align: middle;
 	}
 
 /* =========================================================================
-   					3. General - The main styles for the the theme 
+   					3. General - The main styles for the the theme
    ========================================================================== */
-  
+
 .site-head {height: 500px;}
 #site-head {height: 300px;}
 
 .site-head, #site-head {
 	position: relative;
-	display: table; 
+	display: table;
 	width: 100%;
 	margin-bottom: 6rem;
 	text-align: center;
@@ -317,7 +317,7 @@ margin on the iframe, cause it breaks stuff. */
 
 .site-head:before, #site-head:before {
 	content: "";
-	display: block; 
+	display: block;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -325,8 +325,8 @@ margin on the iframe, cause it breaks stuff. */
 	background-image: -moz-linear-gradient(-90deg, rgba(43,43,43,0.20) 0%, rgba(43,43,43,0.50) 100%);
 	background-image: -webkit-linear-gradient(-90deg, rgba(43,43,43,0.20) 0%, rgba(43,43,43,0.50) 100%);
 	background-image: -ms-linear-gradient(-90deg, rgba(43,43,43,0.20) 0%, rgba(43,43,43,0.50) 100%);
-	background-image: linear-gradient(-180deg, rgba(43,43,43,0.20) 0%, rgba(43,43,43,0.50) 100%);	
-	} 
+	background-image: linear-gradient(-180deg, rgba(43,43,43,0.20) 0%, rgba(43,43,43,0.50) 100%);
+	}
 
 .header_typesome {
 	position: relative;
@@ -348,8 +348,8 @@ margin on the iframe, cause it breaks stuff. */
 	-moz-box-shadow:    0px 2px 4px 0px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
 	box-shadow:         0px 2px 4px 0px rgba(0,0,0,0.5);
-	}	
-	
+	}
+
 .blogtitle_typesome {
 	margin: 2rem 0 2rem;
 	}
@@ -358,11 +358,11 @@ margin on the iframe, cause it breaks stuff. */
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
 	font-size: 4.8rem;
-	color: #fff; 
+	color: #fff;
 	text-shadow: 2px 2px 0px #000;
 	text-decoration: none;
 	}
- 
+
 .blogdescription_typesome {
 	font-family: 'Noto Serif', serif;
 	font-size: 1.6rem;
@@ -383,11 +383,11 @@ margin on the iframe, cause it breaks stuff. */
 	max-width: 780px;
 	margin: 0 auto;
 	}
-	 	
+
 .article_typesome {
 	margin-bottom: 6rem;
 	}
-	
+
 .postheader_typesome ul {
 	margin: 0;
 	padding: 0;
@@ -400,14 +400,14 @@ margin on the iframe, cause it breaks stuff. */
     vertical-align: bottom;
     margin-right: 0.5rem;
 }
-	
+
 .postheader_typesome ul li {
 	padding: 0;
 	margin: 0;
 	display: inline-block;
 	}
-	
-.date_typesome, .posttags_typesome, .posttags_typesome a, .name-thumb_typesome a {
+
+.date_typesome, .readtime_typesome, .posttags_typesome, .posttags_typesome a, .name-thumb_typesome a {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	font-size: 1.4rem;
@@ -419,15 +419,17 @@ margin on the iframe, cause it breaks stuff. */
     text-decoration: underline;
     color: #5BA4E5;
 }
-	
-.posttags_typesome:before, .postheader_typesome ul li:nth-child(3):before {
+
+.readtime_typesome:before,
+.posttags_typesome:before,
+.postheader_typesome ul li:nth-child(3):before {
 	content:" • ";
 	font-weight: 700;
     color: #7F7F7F;
     font-family: 'Open Sans', sans-serif;
     font-size: 1.4rem;
 	}
-	
+
 	/* Post title */
 
 .posttitle_typesome {
@@ -448,7 +450,7 @@ margin on the iframe, cause it breaks stuff. */
 	}
 
 	/* Post content */
-	
+
 .postcontent_typesome {
 	font-family: 'Noto Serif', serif;
 	font-size: 2rem;
@@ -456,11 +458,11 @@ margin on the iframe, cause it breaks stuff. */
 	line-height: 1.6;
 	padding-bottom: 2rem;
 	}
-	
+
 .postcontent_typesome p:first-child {
 	margin: 0;
 	padding: 0;
-	}	
+	}
 
 
 /* ==========================================================================
@@ -474,14 +476,14 @@ margin on the iframe, cause it breaks stuff. */
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
 	font-size: 1.6rem;
-	color: #383838; 
+	color: #383838;
 	}
 
 .read_typesome {
 	padding-top: 1rem;
 	padding-bottom: 1.4rem;
 	}
-	
+
 .read_typesome span:before {
 	content:" • ";
 	}
@@ -490,17 +492,17 @@ margin on the iframe, cause it breaks stuff. */
 	position: absolute;
 	right: 0;
 	top: 1rem;
-	overflow: hidden;	
+	overflow: hidden;
 	}
-	
+
 .share_typesome h4 {
 	font-size: 1.6rem;
 	color: #7F7F7F;
 	float: left;
 	padding-top: 1rem;
-	margin-top: 0;	
+	margin-top: 0;
 	}
-	
+
 .share_typesome a {
 	font-size: 2rem;
 	color: #ddd;
@@ -520,7 +522,7 @@ margin on the iframe, cause it breaks stuff. */
 .pagination {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
-	font-size: 1.4rem;		
+	font-size: 1.4rem;
 	position: relative;
 	padding-bottom: 10rem;
 	margin: 0 auto;
@@ -528,8 +530,8 @@ margin on the iframe, cause it breaks stuff. */
 	max-width: 780px;
 	text-align: center;
 	}
-	
-.pagination a { 
+
+.pagination a {
 	color: #7F7F7F;
 	text-decoration: none;
 	 }
@@ -539,11 +541,11 @@ margin on the iframe, cause it breaks stuff. */
 	border-radius: 4px;
 	border: 2px solid #ddd;
 	padding: 0.8rem 2.5rem;
-	position: absolute;	
+	position: absolute;
 	max-width: 100%;
 	transition: border-color ease-out 0.4s, color ease-out 0.4s;
 	}
-		
+
 .older-posts:hover,
 .newer-posts:hover {
     border-color: #7F7F7F;
@@ -558,9 +560,9 @@ margin on the iframe, cause it breaks stuff. */
 .page-number {
 	color: #7F7F7F;
 	display: inline-block;
-	margin: 1.4rem auto;		
+	margin: 1.4rem auto;
 	}
-	
+
  /* ==========================================================================
    					7. Footer - The bottom of every page
    ========================================================================== */
@@ -569,11 +571,11 @@ margin on the iframe, cause it breaks stuff. */
 	background: #2B2B2B;
 	width: 100%;
 	}
-	
+
 .footer_typesome .main_typesome {
 	padding: 6rem 0;
-	}	
-	
+	}
+
 .footer_typesome ul {
 	display: table;
 	border-spacing: 20px 0;
@@ -582,7 +584,7 @@ margin on the iframe, cause it breaks stuff. */
 	position: relative;
 	padding: 0;
 	}
-	
+
 .footer_typesome ul li {
 	padding: 0;
 	display: table-cell;
@@ -596,11 +598,11 @@ margin on the iframe, cause it breaks stuff. */
 	-webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.20);
 	box-shadow:         0px 0px 4px 0px rgba(0,0,0,0.20);
 	}
-	
+
 .footer_typesome ul:last-child {
 	border-spacing: 0;
 	}
-	
+
 .footer_typesome ul li a {
 	line-height: 2.2em;
 	color: #bbb;
@@ -609,7 +611,7 @@ margin on the iframe, cause it breaks stuff. */
 	width: 32px;
 	height: 32px;
 	}
-	
+
 .footer_typesome ul li:hover {
      -webkit-box-shadow: 0 1px 4px rgba(0,0,0,1);
    -moz-box-shadow: 0 1px 4px rgba(0,0,0,1);
@@ -622,7 +624,7 @@ margin on the iframe, cause it breaks stuff. */
 .footer_typesome ul li a:hover {
 	color: #fff;
 	}
-		
+
     /* Tooltip */
 
 .tooltip {
@@ -635,14 +637,14 @@ margin on the iframe, cause it breaks stuff. */
     top: -50px;
     color: #fff;
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;  
+	font-weight: 700;
     font-size: 1rem;
     line-height: 1em;
     text-align: center;
     background: #202020;
     border-radius: 5px;
 	}
-	
+
 	/* The little chiclet arrow under the tooltip, pointing down */
 
 .tooltip:after {
@@ -671,11 +673,11 @@ margin on the iframe, cause it breaks stuff. */
 .footer_typesome ul li:hover .tooltip:after {
     opacity: 1;
     }
-	 
+
 .footer_typesome hr {
 	background: #383838;
 	height: 1px;
-	border-top: 1px #202020 solid;	
+	border-top: 1px #202020 solid;
 	width: 35%;
 	margin: 2.4rem auto;
 	}
@@ -697,7 +699,7 @@ margin on the iframe, cause it breaks stuff. */
 	font-weight: 700;
 	color: #bbb;
 	}
-	
+
 .footer_typesome .main_typesome p a:hover {
 	color: #fff;
 	}
@@ -705,7 +707,7 @@ margin on the iframe, cause it breaks stuff. */
  /* ==========================================================================
    					8. Single Post - When you click on an individual post
    ========================================================================== */
-	
+
     /* Article Header */
 
 .post-2 {
@@ -716,7 +718,7 @@ margin on the iframe, cause it breaks stuff. */
 
 .post-2:before {
 	content: "";
-	display: none;  
+	display: none;
 }
 
 .post-2 .header_typesome .logo_typesome img {
@@ -774,18 +776,18 @@ margin on the iframe, cause it breaks stuff. */
 .go-back {
 	float: left;
 	}
-	
+
 .nav {
 	float: right;
 	}
-	
+
 .back_typesome span {
 	margin-left: 0.5rem;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	}
-	
-/* Article Footer */	
+
+/* Article Footer */
 .postfooter_typesome {
 	width: 100%;
     max-width: 780px;
@@ -801,7 +803,7 @@ margin on the iframe, cause it breaks stuff. */
     justify-content: flex-start;
 	padding: 1.5rem 0 0;
 	}
-	
+
 /* Author Image */
 .authorimage_typesome {
     background-repeat: no-repeat;
@@ -811,7 +813,7 @@ margin on the iframe, cause it breaks stuff. */
 	display: block;
     height: 90px;
 	width: 90px;
-	margin: 0.4rem 2.5rem 0 0;	
+	margin: 0.4rem 2.5rem 0 0;
 	}
 
 .author_typesome {
@@ -824,29 +826,29 @@ margin on the iframe, cause it breaks stuff. */
 	font-size: 1.4rem;
 	border-right: 1px #f6f6f6 solid;
 	}
-	
+
 .author_typesome ul {
 	margin: 0;
 	padding: 1.2rem 0 0;
 	}
-	
+
 .author_typesome ul li {
 	 display: inline-block;
 	 margin: 0;
 	 padding: 0.5rem 0;
 	}
-	
+
 /* Author Name*/
 .author_typesome ul li h4 {
 	font-size: 1.4rem;
 	margin: 0;
 	padding: 0
-	}	
+	}
 
 .author_typesome ul li h4 a {
     text-decoration: none;
 }
-	
+
 /* Author Address, Website */
 .author_typesome ul li h5 {
 	margin: 0;
@@ -857,28 +859,28 @@ margin on the iframe, cause it breaks stuff. */
 	font-size: 1.4rem;
 	color: #7F7F7F;
 	font-family: 'Noto Serif', serif;
-	font-weight: 400; 
+	font-weight: 400;
 	font-style: italic;
 	}
-		
+
 .authordata_typesome a {
 	color: #7F7F7F;
 	}
-	
+
 .authordata_typesome a:hover {
 	color: #5BA4E5;
 	}
-		
+
 .authordata_typesome:before {
 	content: " • ";
 	font-weight: 300;
 	color: #7F7F7F;
-	}	
-	
+	}
+
 /* Author Bio */
 .authorbio_typesome {
 	font-family: 'Noto Serif', serif;
-	font-weight: 400; 
+	font-weight: 400;
 	font-size: 1.4rem;
 	margin: 0;
 	padding: 1.2rem 1rem 0 0;
@@ -888,12 +890,12 @@ margin on the iframe, cause it breaks stuff. */
 
  /* ==========================================================================
    					9. Third Party Elements -> post.hbs
-   ========================================================================== */	
+   ========================================================================== */
 
 .postfooter_typesome .sharepost_typesome  {
 	width: 20%;
 	margin: 1.7rem auto;
-	padding: 0; 
+	padding: 0;
 	text-align: center;
 	}
 
@@ -906,7 +908,7 @@ margin on the iframe, cause it breaks stuff. */
 	margin: 0 auto;
 	text-align: center;
 	}
-	
+
 .postfooter_typesome .sharepost_typesome a {
 	font-size: 2.2rem;
 	color: #ddd;
@@ -917,14 +919,14 @@ margin on the iframe, cause it breaks stuff. */
 	}
 
 .postfooter_typesome .sharepost_typesome a:last-child {
-	margin: 0; 
+	margin: 0;
 	padding: 0;
 	}
 
 .postfooter_typesome .sharepost_typesome a:hover {
 	color: #383838;
 	}
-	
+
  /* ==========================================================================
    					10. COMMENTS - Disqus
    ========================================================================== */
@@ -939,14 +941,14 @@ margin on the iframe, cause it breaks stuff. */
 	color: #7F7F7F;
 	font-size: 1.4rem;
 	border-radius: 4px;
-	border: 2px solid #ddd;	
+	border: 2px solid #ddd;
 	transition: border ease 0.3s;
 	margin: 0 0 5rem;
 	padding: 0;
 	background: none;
 	transition: background-color ease-in 0.3s, border-color ease-out 0.4s, color ease-out 0.4s;
-	}		
-	
+	}
+
 .cmd_typesome:hover {
 	border-color: #7F7F7F;
 	color: #fff;
@@ -1000,21 +1002,21 @@ margin on the iframe, cause it breaks stuff. */
     margin-bottom: 5rem;
 }
 
-	
+
 /* ==========================================================================
   							12. Media Queries - Tablet
    ========================================================================== */
-   
+
   @media only screen and (max-width: 900px) {
-	   
+
 	 blockquote {
         margin-left: 0;
     	}
-		
+
 	.site-head {
        	min-height: 280px;
 		}
-		
+
 	.blogtitle_typesome a, #site-head .header_typesome .blogtitle_typesome a {
         font-size: 4rem;
         letter-spacing: -1px;
@@ -1025,11 +1027,11 @@ margin on the iframe, cause it breaks stuff. */
         font-size: 1.7rem;
         line-height: 1.5em;
     }
-	
+
 	.posttitle_typesome {
 		font-size: 3.5rem;
 	}
-		
+
 	.postcontent_typesome {
 		font-size: 1.8rem;
 	}
@@ -1050,45 +1052,45 @@ margin on the iframe, cause it breaks stuff. */
     h4 {
         font-size: 2.4rem;
     }
-	
+
 	.share_typesome a {
 		padding-left: 1rem;
 		}
-	
+
 	.author_typesome {
 		max-width: 50%;
 		}
-		
+
     .postfooter_typesome .sharepost_typesome {
 		width: 20%;
 		   }
-		   
+
 	.postfooter_typesome .sharepost_typesome h4 {
 		margin: 0 auto 10%;
 		}
-		   
+
 	.postfooter_typesome .sharepost_typesome a {
 		padding: 0 5% 0 0;
 		margin: 0.5rem 0 0;
 		}
   }
-	
+
 /* ==========================================================================
    					13. Media Queries - Phone
    ========================================================================== */
- 
+
    @media all and (max-width: 600px) {
-	   
+
 	   .site-head, #site-head {
 			max-height: 100%;
 			margin-bottom: 3rem;
 			width: 100%;
 		}
-		
+
 		.main_typesome {
 			width: 94%;
 			}
-	   
+
 	   .blogtitle_typesome a, #site-head .header_typesome .blogtitle_typesome a {
            font-size: 3rem;
            letter-spacing: -1px;
@@ -1103,7 +1105,7 @@ margin on the iframe, cause it breaks stuff. */
 		.posttitle_typesome {
 			font-size: 3.5rem;
 		}
-		
+
 		.postcontent_typesome {
 			font-size: 1.8rem;
 		}
@@ -1117,89 +1119,89 @@ margin on the iframe, cause it breaks stuff. */
 		h3 {
 			font-size: 2.8rem;
 		}
-	
+
 		h4 {
 			font-size: 2.3rem;
 		}
-		
+
 		.posttitle_typesome {
 			font-size: 2.8rem;
 		}
-			
+
 		.postcontent_typesome {
 			font-size: 1.6rem;
 		}
-		
+
 		.postheader_typesome ul {
 			line-height: 1.8;
 			}
-       
+
        .author-thumb_typesome {
             vertical-align: middle;
            margin-bottom: 0.2rem;
         }
-       
+
         .postheader_typesome ul .date_typesome, .postheader_typesome ul .posttags_typesome {
             display: block;
         }
-		
+
 		.date_typesome, .readtime_typesome, .posttags_typesome a, .name-thumb_typesome a  {
 			font-size: 1.2rem;
 			line-height: 1.2;
 			padding: 0;
 			margin: 0;
 			}
-		
+
 		.excerptfooter_typesome {
 			height: 10rem;
 			margin: 0 auto;
 			text-align: center;
 			border-top: 1px solid #ddd;
 			}
-		
+
 		.share_typesome {
 			display: inline-block;
 			width: 100%;
 			top: 4rem;
 			text-align: center;
-			}	
-		
+			}
+
 		.share_typesome h4 {
 			display: none;
 			}
-		
+
 		.share_typesome a {
 			margin: 0;
 			padding: 2rem 1rem 0;
 			font-size: 2.5rem;
 			}
-		
+
 		.pagination {
 			padding: 2rem 0 5rem;
 			width: 100%;
-			text-align: center;	
+			text-align: center;
 			}
-		
+
 		.newer-posts, .older-posts {
 			position: static;
 			}
-			
+
 		.page-number {
 			display: block;}
-		
+
 		.postfooter_typesome {
 			display: block;
 			}
-         
+
        .postfooter_typesome .sharepost_typesome a:last-child {
-            margin: 0 0.8rem; 
+            margin: 0 0.8rem;
             padding: 0;
             }
-			
+
 		.authorimage_typesome {
 			display: none;
 			}
-		
+
 		.author_typesome {
 			display: block;
 			border-right: none;
@@ -1208,13 +1210,13 @@ margin on the iframe, cause it breaks stuff. */
 			max-width: 600px;
 			text-align: center;
 			}
-		
+
 		.authorbio_typesome {
 			padding: 1rem 0 0;
 			margin: 0 auto;
 			text-align: center;
 			}
-		
+
 		.postfooter_typesome .sharepost_typesome {
 			display: block;
 			margin: 3rem auto;
@@ -1225,14 +1227,14 @@ margin on the iframe, cause it breaks stuff. */
 		.postfooter_typesome .sharepost_typesome h4 {
 			padding: 0;
 			margin: 0 0 1.5rem 0;
-			}	
-		
+			}
+
 		.postfooter_typesome .sharepost_typesome a {
 			padding: 0;
 			margin: 0 0.8rem;
 			font-size: 2.5rem;
 			}
-		
+
 		.article_typesome {
 			margin-bottom: 4rem;
 			}

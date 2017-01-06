@@ -42,6 +42,9 @@ config.ignored_sitemap_matchers[:source_dotfiles] = proc { |file|
   file =~ %r{/\.} && file !~ %r{/\.(well-known|htaccess|htpasswd|nojekyll)}
 }
 
+require_relative 'lib/reading_time'
+activate :reading_time
+
 ###
 # Compass
 ###

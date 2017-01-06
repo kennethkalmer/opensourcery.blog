@@ -21,6 +21,7 @@
 		<header class="postheader_typesome">
 			<ul>
         <li><time class="date_typesome"><%= current_article.date.strftime("%A %e %b %Y") %></time></li>
+        <li class="readtime_typesome"><%= reading_time current_article.body %></li>
         <%- tags = current_article.tags %>
         <% if tags.any? %>
 				<li class="posttags_typesome"><%= tags.join(' | ') %></li>
