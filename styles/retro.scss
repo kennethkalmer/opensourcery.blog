@@ -1,5 +1,5 @@
 // Clean slate
-@import "normalize.css/normalize";
+@import "normalize";
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Merriweather:300);
@@ -11,7 +11,7 @@
 }
 
 html {
-  background: image-url('images/lightpaperfibers.png');
+  background: url('/images/lightpaperfibers.png');
 
   @media
     only screen and (-webkit-min-device-pixel-ratio: 2),
@@ -22,7 +22,7 @@ html {
     only screen and (                min-resolution: 2dppx) {
 
       // For the retina displays
-      background: image-url('images/lightpaperfibers_@2X.png');
+      background: url('/images/lightpaperfibers_@2X.png');
       background-size: 500px 300px;
   }
 }
