@@ -1,0 +1,10 @@
+/**
+ Main opensourcery stylesheet. Brings in the Typesome theme and customizes
+ where required.
+*/
+
+@import "theme";
+
+.back_typesome + .pagination_typesome {
+  @extend .postfooter_typesome;
+}

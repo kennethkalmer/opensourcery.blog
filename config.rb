@@ -2,7 +2,36 @@
 # Blog settings
 ###
 
-# Time.zone = "UTC"
+Time.zone = "Africa/Johannesburg"
+
+###
+# Tweaks
+###
+
+# https://github.com/middleman/middleman/issues/2002
+Tilt::SYMBOL_ARRAY_SORTABLE = false
+
+###
+# Page options, layouts, aliases and proxies
+###
+
+# Per-page layout changes:
+#
+# With no layout
+page '/*.xml', layout: false
+page '/*.json', layout: false
+page '/*.txt', layout: false
+
+# With alternative layout
+# page "/path/to/file.html", layout: :otherlayout
+
+# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
+# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
+#  which_fake_page: "Rendering a fake page with a local variable" }
+
+###
+# Helpers
+###
 
 activate :blog do |blog|
   # This will add a prefix to all links, template references and source paths
@@ -33,9 +62,6 @@ page "/feed.xml", layout: false
 
 # .htaccess love
 page "/.htaccess.html", layout: false
-after_build do
-  File.rename 'build/.htaccess.html', 'build/.htaccess'
-end
 
 # https://github.com/middleman/middleman/issues/1243#issuecomment-39356604
 config.ignored_sitemap_matchers[:source_dotfiles] = proc { |file|
@@ -45,43 +71,17 @@ config.ignored_sitemap_matchers[:source_dotfiles] = proc { |file|
 require_relative 'lib/reading_time'
 activate :reading_time
 
-###
-# Compass
-###
-
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
-
-###
-# Bower
-###
-
-after_configuration do
-  sprockets.append_path File.join root, 'bower_components'
+# Reload the browser automatically whenever files change
+configure :development do
+  activate :livereload
 end
 
-###
-# Page options, layouts, aliases and proxies
-###
+# Nice URL's
+activate :directory_indexes
 
-# Per-page layout changes:
-#
-# With no layout
-# page "/path/to/file.html", layout: false
-#
-# With alternative layout
-# page "/path/to/file.html", layout: :otherlayout
-#
-# A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
-
-# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
-# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
-#  which_fake_page: "Rendering a fake page with a local variable" }
+# Be discoverable
+set :url_root, "http://www.opensourcery.co.za"
+activate :search_engine_sitemap
 
 # Disqus
 activate :disqus do |d|
@@ -92,7 +92,6 @@ end
 # UA
 activate :google_analytics do |ga|
   ga.tracking_id = 'UA-192703-9'
-  ga.development = false
 end
 
 # Syntax
@@ -105,9 +104,6 @@ activate :syntax
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
-# Reload the browser automatically whenever files change
-activate :livereload
-
 # Methods defined in the helpers block are available in templates
 # helpers do
 #   def some_helper
@@ -115,33 +111,39 @@ activate :livereload
 #   end
 # end
 
-# Pretty URL's
-activate :directory_indexes
+helpers do
 
-set :css_dir, 'stylesheets'
+  def root_url
+    config[:root_url]
+  end
 
-set :js_dir, 'javascripts'
+  def image_url(source)
+    parts = [root_url, image_path(source)].compact
+    URI.join(*parts)
+  end
 
-set :images_dir, 'images'
+end
 
-# Search engine sitemap
-set :url_root, "http://www.opensourcery.co.za"
-activate :search_engine_sitemap
+# Static CSS
+activate :external_pipeline,
+         name: :gulp,
+         command: "./node_modules/.bin/gulp #{'styles' if build?}",
+         source: "tmp"
+
+# Markdown tweaks
+set :markdown_engine, :redcarpet
+set :markdown, :tables => true, :autolink => true, :fenced_code_blocks => true
+
+set :js_dir, "javascript"
+set :css_dir, "stylesheets"
+set :images_dir, "images"
+set :fonts_dir, "fonts"
 
 # Build-specific configuration
 configure :build do
-  # For example, change the Compass output style for deployment
-  # activate :minify_css
+  set :root_url, "https://opensourcery.co.za"
 
-  # Minify Javascript on build
-  # activate :minify_javascript
-
-  # Enable cache buster
-  # activate :asset_hash
-
-  # Use relative URLs
-  # activate :relative_assets
-
-  # Or use a different image path
-  # set :http_prefix, "/Content/images/"
+  activate :minify_css
+  activate :minify_javascript
+  activate :asset_hash
 end
