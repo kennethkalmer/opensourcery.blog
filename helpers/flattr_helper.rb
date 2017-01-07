@@ -1,7 +1,7 @@
 module FlattrHelper
 
   def flattr_article( article )
-    url = [ "http://www.opensourcery.co.za", article.url ].join
+    url = [ "https://www.opensourcery.co.za", article.url ].join
     title = article.data["title"]
     lang = article.respond_to?(:lang) ? article.lang : "en-gb"
 

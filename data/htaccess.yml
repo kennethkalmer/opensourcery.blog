@@ -1,6 +1,6 @@
 web:
   domain: opensourcery.co.za
-  url: http://www.opensourcery.co.za
+  url: https://www.opensourcery.co.za
 
 redirect:
   /feed/rss/: /feed.xml
