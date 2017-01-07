@@ -134,7 +134,7 @@ activate :external_pipeline,
 set :markdown_engine, :redcarpet
 set :markdown, :tables => true, :autolink => true, :fenced_code_blocks => true
 
-set :js_dir, "javascript"
+set :js_dir, "javascripts"
 set :css_dir, "stylesheets"
 set :images_dir, "images"
 set :fonts_dir, "fonts"
