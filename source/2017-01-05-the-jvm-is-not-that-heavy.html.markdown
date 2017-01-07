@@ -8,7 +8,7 @@ image: 2017-01-05-the-jvm-is-not-that-heavy/fine.jpg
 ---
 
 > Mostly my opposition to Clojure is the JVM. That sh*t is heavy.
- 
+
 This came up in the [ZA Tech](http://zatech.co.za) Slack team several weeks ago. While watching some Clojure talks over the holidays the speakers also noted this objection over and over again.
 
 I had a bit of a [monologue in Slack](https://zatech.slack.com/archives/developers/p1481966328001513) about this. Now I'm penning it down for broader consumption and discussion.
@@ -21,7 +21,7 @@ I first got over my "fear" of the JVM when I deployed a little production app wi
 
 Still I thought it was a bit heavy to use, but I was in love with the ugly duckling.
 
-I've more or less followed JRuby development and success stories, and had a fantastic time at [Rubyfuza 2016](http://rubyfuza.org) with Charles Nutter. I felt so inspired afterwards that I went on a mission to [open pull requests](https://github.com/activeadmin/activeadmin/pull/3792) to Ruby projects that simply runs their tests with JRuby. It stopped with that one, my bad.
+I've more or less followed JRuby development and success stories, and had a fantastic time at [Rubyfuza 2015](http://rubyfuza.org) with [Charles Nutter](https://www.youtube.com/watch?v=aZh9e7aFE4E). I felt so inspired afterwards that I went on a mission to [open pull requests](https://github.com/activeadmin/activeadmin/pull/3792) to Ruby projects that simply runs their tests with JRuby. It stopped with that one, my bad.
 
 ## Fast forward to 2016
 
