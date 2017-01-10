@@ -1,0 +1,39 @@
+<article class="article_typesome">
+
+	<header class="postheader_typesome">
+		<ul>
+			<li class="date_typesome"><time><%= article.date.strftime("%A %e %b %Y") %></time></li>
+      <li class="readtime_typesome"><%= reading_time article.body %></li>
+      <%- tags = article.tags %>
+      <% if tags.any? %>
+			<li class="posttags_typesome">
+      <%= tags.join(', ') %>
+			</li>
+      <% end %>
+		</ul>
+
+		<h2 class="posttitle_typesome">
+      <%= link_to article.title, article, rel: "bookmark" %>
+		</h2>
+	</header>
+
+	<div class="postcontent_typesome">
+    <p><%= article.summary(250) %></p>
+	</div>
+
+	<footer class="excerptfooter_typesome" >
+		<section class="read_typesome">
+      <%= link_to "Read More", article, class: "more_typesome" %>
+			<span></span>
+      <a class="comments_typesome" href="<%= article.url %>#disqus_thread" data-disqus-identifier="<%= article.data[:disqus_identifier] %>">Comments</a>
+		</section>
+
+		<section class="share_typesome">
+			<h4>Share: &nbsp;</h4>
+      <a class="fa fa-twitter-square" target="_blank" href="http://twitter.com/share?text=<%= article.title %>&url=http://www.opensourcery.co.za<%= article.url %>"><span class="hidden_typesome">Twitter</span></a>
+		  <a class="fa fa-facebook-square" target="_blank" href="http://www.facebook.com/sharer.php?u=http://www.opensourcery.co.za<%= article.url %>"><span class="hidden_typesome">Facebook</span></a>
+		  <a class="fa fa-google-plus-square" target="_blank" href="https://plus.google.com/share?url=http://www.opensourcery.co.za<%= article.url %>"><span class="hidden_typesome">Google+</span></a>
+		</section>
+	</footer>
+
+</article>
