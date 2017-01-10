@@ -8,13 +8,16 @@
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <meta name="twitter:site" content="@kennethkalmer">
     <meta name="twitter:creator" content="@kennethkalmer">
+    <meta name="og:site_name" content="Open Sourcery">
     <meta name="google-site-verification" content="">
+    <meta name="author" content="Kenneth Kalmer">
     <meta property="fb:admins" content="">
     <link href='https://fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic,700italic|Open+Sans:300,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag "style", "font-awesome.min", "code" %>
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= yield_content :head %>
   </head>
   <body class="home-template">
     <%= google_analytics_tag %>
