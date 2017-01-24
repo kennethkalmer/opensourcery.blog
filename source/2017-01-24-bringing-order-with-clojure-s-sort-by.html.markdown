@@ -1,5 +1,9 @@
-Sorting data with Clojure
-=========================
+---
+title: Bringing order with Clojure's sort-by
+date: 2017-01-24 17:04 UTC
+tags:
+- clojure
+---
 
 It is unavoidable, really.
 
@@ -29,13 +33,13 @@ Clojure is great at taming data of all kinds, here I just want to explore a few 
 
 For the examples below I’m going to be working with some invoice data. Each invoice looks something like this:
 
-```clojure
-{:invoice/number “ACMEINV00001”
- :invoice/date “2016-11-25”
+~~~clojure
+{:invoice/number "ACMEINV00001"
+ :invoice/date "2016-11-25"
  :invoice/total-before-tax 100
  :invoice/tax 10
  :invoice/items [...]}
-```
+~~~
 
 I’ll leave it up to you to imagine how rich these data structures can become in a real invoicing system.
 
@@ -43,23 +47,23 @@ I’ll leave it up to you to imagine how rich these data structures can become i
 
 The first requirement could be to sort a vector of invoices by total. These is relatively simple with `sort-by`:
 
-```clojure
+~~~clojure
 (sort-by :invoice/total-before-tax invoices)
-```
+~~~
 
 The first argument to `sort-by` should be function, and since keywords are functions of maps you can just specify the key in the map to be used. One caveat, the value of the entry in the map must be comparable.
 
 That gets you a new vector, with the smallest invoices first and the valuable ones at the end. Hardly useful for business, so lets flip it around by supplying a comparator function too:
 
-```clojure
+~~~clojure
 (sort-by > :invoice/total-before-tax invoices)
-```
+~~~
 
 Now we’re cooking with gas! The most valuable invoices are now at the head of the list! Need the top 10? Just `take` what you need:
 
-```clojure
+~~~clojure
 (take 10 (sort-by > :invoice/total-before-tax invoices))
-```
+~~~
 
 How did this happen? Clojure compared the values returned by `:invoice/total-before-tax` using the `>` function.
 
@@ -69,19 +73,19 @@ The next requirement might be to sort by `:invoice/number` and `:invoice/total-b
 
 This is where our friend `juxt` comes in. `juxt` accepts a list of functions and returns a new function, that when called, returns the results of all the original functions in a vector.
 
-```clojure
+~~~clojure
 (def head-and-tail (juxt first last))
 (head-and-tail [1 2 3 4 5]) #=> [1 5]
-```
+~~~
 
 Here you can see that juxt applied `first`, and `last`, to the supplied list of numbers and gave us the head and the tail of the list. Keen readers might have just figured out where I’m going with this.
 
 `sort-by` can compare these vectors too, so we can sort our invoices like this:
 
-```clojure
+~~~clojure
 (def total-before-tax-and-number (juxt :invoice/total-before-tax :invoice/number))
 (sort-by total-before-tax-and-number invoices)
-```
+~~~
 
 Now the results will be sorted from lowest value invoice to the highest, with the invoice numbers in order too. So we're halfway there.
 
@@ -93,7 +97,7 @@ One possible solution is to use `comp`, and make a new function that will return
 
 An example will be worth a thousand words:
 
-```clojure
+~~~clojure
 (require '[clojure.string :as str])
 (def up-and-reverse (comp str/reverse str/upper-case))
 (up-and-reverse "elloh") #=> "HELLO"
@@ -101,37 +105,33 @@ An example will be worth a thousand words:
 ;; or
 
 (str/reverse (str/upper-case "elloh")) => "HELLO"
-```
+~~~
 
 In order to get the negative total we can just `comp` together `-` and `:invoice/total-before-tax` like this:
 
-```clojure
+~~~clojure
 (def negative-total (comp - :invoice/total-before-tax))
 (negative-total invoice) #=> -100
-```
+~~~
 
 If this right-to-leftness of `comp` bothers you, you could also simply declare it as an anonymous function which wraps a thread-first functional pipeline: `#(-> % :invoice/total-before-tax -)`.
 
 And using our new friend `juxt` we can simply roll it up like this:
 
-```clojure
+~~~clojure
 (def negative-total-and-number (juxt negative-total :invoice/number))
 (sort-by negative-total-and-number invoices)
-```
+~~~
 
 And now we have a list of invoices sorted by total from most to least valuable, and where the totals match the invoice numbers follow a progression.
 
 Another variation would be to sort by number of items on an invoice. This can be achieved by composing `count` and `:invoice/items` together:
 
-```clojure
+~~~clojure
 (sort-by (comp count :invoice/items) > invoices)
-```
+~~~
 
 And you'll have the invoice with the most items in at the head of the list.
-
-## [TODO] Unsortables
-
-_Which structures can't be sorted like this? Does this section even matter._
 
 ## Wrapping up
 
