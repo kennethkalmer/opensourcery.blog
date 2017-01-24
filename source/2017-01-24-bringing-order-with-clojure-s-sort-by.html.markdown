@@ -3,6 +3,7 @@ title: Bringing order with Clojure's sort-by
 date: 2017-01-24 17:04 UTC
 tags:
 - clojure
+image: "2017-01-24-bringing-order-with-clojure-s-sort-by/Metal_movable_type.jpg"
 ---
 
 It is unavoidable, really.
@@ -148,3 +149,6 @@ A big thanks for [Robert Stuttaford](http://www.stuttaford.me/) for helping to [
 * Clojure Docs for [sort-by](http://clojuredocs.org/clojure.core/sort-by), [sort](http://clojuredocs.org/clojure.core/sort), [compare](http://clojuredocs.org/clojure.core/compare), [juxt](http://clojuredocs.org/clojure.core/juxt) & [comp](http://clojuredocs.org/clojure.core/comp).
 * [Callability in Clojure](https://camdez.com/blog/2012/03/21/callability-in-clojure/)
 * [What is the default order of records for a SELECT statement in MySQL?](http://dba.stackexchange.com/questions/6051/what-is-the-default-order-of-records-for-a-select-statement-in-mysql)
+
+
+Cover image by [Willi Heidelbach](https://en.wikipedia.org/wiki/Sorting#/media/File:Metal_movable_type.jpg) &mdash; Creative Commons Attribution-Share Alike 3.0 Unported &mdash; Wikipedia
