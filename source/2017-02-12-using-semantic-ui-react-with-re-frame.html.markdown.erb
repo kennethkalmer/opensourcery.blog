@@ -1,0 +1,134 @@
+---
+title: Using semantic-ui-react with re-frame
+date: 2017-02-12 17:27 SAST
+tags:
+- clojurescript
+- clojure
+- react
+image: 2017-02-12-using-semantic-ui-react-with-re-frame/banner.png
+---
+
+One of the great things about ClojureScript is the fantastic interop story with the JavaScript ecosystem. That said, taming JavaScript is a bit of an art that takes some practice.
+
+I've integrated plain [Semantic-UI](http://semantic-ui.com) with a [re-frame](https://github.com/Day8/re-frame) project before and there was a lot of state to tame, and plenty of calls to [`(reagent/create-class)`](https://github.com/Day8/re-frame/blob/master/docs/Using-Stateful-JS-Components.md) which I would have liked to avoid.
+
+In starting up a fresh re-frame app I decided to see if I can't make use of the official [Semantic-UI-React](http://react.semantic-ui.com) components. Turned out to be fairly simple, and here I'll show you how.
+
+## The Widget
+
+I decided to build a little widget to show off the code in real life. [Have a look](/github-tree-widget) for yourself.
+
+<video width="100%" controls src="<%= asset_url "2017-02-12-using-semantic-ui-react-with-re-frame/github-tree-widget.mp4" %>"></video>
+
+The source code is available on GitHub at [kennethkalmer/re-frame-semantic-ui-react-github-widget](https://github.com/kennethkalmer/re-frame-semantic-ui-react-github-widget).
+
+## Piecing it together
+
+Piecing it together was relatively simple with only one dependency: `[cljsjs/semantic-ui-react "0.64.0-0"]` and a few functions.
+
+### cljsjs?
+
+From the CLJSJS website:
+
+> CLJSJS provides an easy way for ClojureScript developers to depend on Javascript libraries.
+
+It is a crowd sourced list of JavaScript packages bundled up with the appropriate extern files that allow you to use the [advanced optimizations](https://github.com/clojure/clojurescript/wiki/Compiler-Options#optimizations) offered by the [Google Closure compiler](https://developers.google.com/closure/compiler/). By having one place with a lot of packages and their extern files, it makes all of our lives a little simpler.
+
+This is a little different from [WebJars](http://www.webjars.org) though, which seem to package up various NPM & Bower packages verbatim. WebJars is also focused on the broader Java ecosystem and doesn't cater for Clojure specifically.
+
+### The functions
+
+Based on the cljsjs/semantic-ui-react README I came up with this:
+
+~~~clojure
+(ns re-frame-semantic-ui-react-github-widget.views
+  ;; Other requires omitted...
+  (:require [cljsjs.semantic-ui-react]
+            [goog.object]))
+
+;; Easy handle to the top-level extern for semantic-ui-react
+(def semantic-ui js/semanticUIReact)
+
+(defn component
+  "Get a component from sematic-ui-react:
+
+    (component \"Button\")
+    (component \"Menu\" \"Item\")"
+  [k & ks]
+  (if (seq ks)
+    (apply goog.object/getValueByKeys semantic-ui k ks)
+    (goog.object/get semantic-ui k)))
+~~~
+
+This gives us a single `(component)` function to use for getting any component (nested or not) from Semantic-UI-React.
+
+### Common components
+
+It then setup some useful common components:
+
+~~~clojure
+(def container      (component "Container"))
+(def segment        (component "Segment"))
+(def dimmer         (component "Dimmer"))
+(def loader         (component "Loader"))
+(def message        (component "Message"))
+(def message-header (component "Message" "Header"))
+;; etc...
+~~~
+
+### Rendering components
+
+Since [reagent 0.6-alpha](http://reagent-project.github.io/news/news060-alpha.html), "native react components" can be used directly in the Reagent's Hiccup forms like this:
+
+~~~clojure
+[:> container
+  [:> segment {:basic true}
+    [:p "Hello from this segment"]]]
+~~~
+
+So piecing together your interface with the Semantic-UI components becomes very simple.
+
+### Going shorthand
+
+Semantic-UI-React offers some nice shorthand props where possible, allowing things to become very compact:
+
+~~~clojure
+(fn []
+  (let [header (component "Header")]
+    [:> header {:as        "h1"
+                :subheader "A sample widget using semantic-ui-react with re-frame"
+                :content   "GitHub Tree Widget"
+                :icon      "github"}]))
+
+;; vs
+
+(fn []
+  (let [header    (component "Header")
+        content   (component "Header" "Content")
+        subheader (component "Header" "Subheader")
+        icon      (component "Icon")]
+    [:> header {:as "h1"}
+      [:> icon {:name "github"}]
+      [:> content
+        "GitHub Tree Widget"
+        [:> subheader 
+          "A sample widget using semantic-ui-react with re-frame"]]]))
+~~~
+
+### Bonus content
+
+I used the opportunity in the widget to really come to terms with "Layer 3 computations" in the re-frame [signal graph](https://github.com/Day8/re-frame/blob/master/docs/SubscriptionInfographic.md). If you're interested have a look at `src/cljs/subs.cljs`.
+
+re-frame's [http-fx](https://github.com/Day8/re-frame-http-fx) handler also came in useful for the ajax calls, although I could do better by having a function build up the request from a common base. The details are in `src/cljs/events.cljs`.
+
+## Looking forward
+
+The demo is a bit contrived, but is a different take on the boring TodoMVC-style demos. I got to articulate the process, and hopefully, help you dear reader.
+
+Having only used react through re-frame, this process definitely helped me gain a better understanding of react itself. Spending the time looking at the extensive demos in the the Semantic-UI-React docs lead to a few "aha" moments. It also made me happy knowing I odn't have to write all that verbose syntax :).
+
+ClojureScript is fantastic, and if you haven't yet experienced it try and get this project running locally and dabble with. Figwheel will surely blow your mind.
+
+### Final caveat
+
+As with all proxies for upstream projects, CLJSJS might be out of date or missing the project you want. If things are out of date, quickly [file a pull request](https://github.com/cljsjs/packages/pull/991) to get things updated. If missing, open an issue and hear if they'll accept the new package.
