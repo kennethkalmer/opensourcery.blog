@@ -3,6 +3,7 @@ title: Bringing order with Clojure's sort-by
 date: 2017-01-24 17:04 UTC
 tags:
 - clojure
+- clojurescript
 image: "2017-01-24-bringing-order-with-clojure-s-sort-by/Metal_movable_type.jpg"
 ---
 

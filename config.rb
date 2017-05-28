@@ -59,6 +59,7 @@ activate :blog do |blog|
 end
 
 page "/feed.xml", layout: false
+page "/clojure.xml", layout: false
 
 # .htaccess love
 page "/.htaccess.html", layout: false
