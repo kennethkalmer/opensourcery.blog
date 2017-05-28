@@ -84,7 +84,7 @@ user=> (<!! (client/transact conn {:tx-data heros}))
              :next-t 1006, 
              :history false},
  :tx-data   [#datom[13194139534315 50 #inst "2017-05-27T08:12:08.248-00:00" 13194139534315 true]
-             #datom[17592186045420 63 "Conan" 13194139534315 true] 
+             #datom[17592186045420 63 "Cohen" 13194139534315 true] 
              #datom[17592186045420 65 6 13194139534315 true] #datom[17592186045420 66 20 13194139534315 true] 
              #datom[17592186045420 68 "Marketing & ointment" 13194139534315 true]
              #datom[17592186045421 63 "Havelock" 13194139534315 true] 
