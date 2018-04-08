@@ -423,7 +423,7 @@ margin on the iframe, cause it breaks stuff. */
 .readtime_typesome:before,
 .posttags_typesome:before,
 .postheader_typesome ul li:nth-child(3):before {
-	content:" • ";
+	content:"\0020\2022\0020";
 	font-weight: 700;
     color: #7F7F7F;
     font-family: 'Open Sans', sans-serif;
