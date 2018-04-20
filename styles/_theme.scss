@@ -485,7 +485,7 @@ margin on the iframe, cause it breaks stuff. */
 	}
 
 .read_typesome span:before {
-	content:" • ";
+	content: "\0020\2022\0020";
 	}
 
 .share_typesome {
@@ -872,7 +872,7 @@ margin on the iframe, cause it breaks stuff. */
 	}
 
 .authordata_typesome:before {
-	content: " • ";
+	content: "\0020\2022\0020";
 	font-weight: 300;
 	color: #7F7F7F;
 	}
