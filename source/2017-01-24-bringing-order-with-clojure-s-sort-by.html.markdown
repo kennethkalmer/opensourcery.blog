@@ -58,13 +58,13 @@ The first argument to `sort-by` should be function, and since keywords are funct
 That gets you a new vector, with the smallest invoices first and the valuable ones at the end. Hardly useful for business, so lets flip it around by supplying a comparator function too:
 
 ~~~clojure
-(sort-by > :invoice/total-before-tax invoices)
+(sort-by :invoice/total-before-tax > invoices)
 ~~~
 
 Now we’re cooking with gas! The most valuable invoices are now at the head of the list! Need the top 10? Just `take` what you need:
 
 ~~~clojure
-(take 10 (sort-by > :invoice/total-before-tax invoices))
+(take 10 (sort-by :invoice/total-before-tax > invoices))
 ~~~
 
 How did this happen? Clojure compared the values returned by `:invoice/total-before-tax` using the `>` function.
