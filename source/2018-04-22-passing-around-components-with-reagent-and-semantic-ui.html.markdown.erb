@@ -1,0 +1,119 @@
+---
+title: Passing around components with reagent and Semantic UI
+date: 2018-04-22 22:00 SAST
+tags:
+- clojurescript
+- clojure
+- react
+image: 2018-04-22-passing-around-components-with-reagent-and-semantic-ui/StockSnap_RPZP2TGEGB.jpg
+---
+
+I've been happily using Semantic UI React since I <%= link_to "first wrote about it", "/2017-02-12-using-semantic-ui-react-with-re-frame.html" %> more than a year ago. Everything in the previous post still holds true, the only thing that has changed is the version number of the semantic-ui-react package.
+
+The CLJSJS community has been great at keeping things up to date, and I can't recall any breaking changes in the components that I've been using.
+
+One thing I unknowingly skipped in the previous article was passing around React components as arguments for other components. I don't think I realized at the time it was possible. I was learning the minimum viable React through re-frame, which got me very far (and continues to do).
+
+This oversight was noticed by others though. A few people reached out for advice in private, and on [StackOverflow](https://stackoverflow.com/questions/49327122/clojurescript-semantic-ui-react-search-custom-renderer/49327457#49327457). Where I fell short other community members helped out in the Clojurians Slack.
+
+## The Problem
+
+Looking at the [tabs example](https://react.semantic-ui.com/modules/tab#tab-example-basic) in the Semantic UI React docs, you encounter this:
+
+~~~jsx
+import React from 'react'
+import { Tab } from 'semantic-ui-react'
+
+const panes = [
+  { menuItem: 'Tab 1', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
+  { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+  { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+]
+
+const TabExampleBasic = () => (
+  <Tab panes={panes} />
+)
+
+export default TabExampleBasic
+~~~
+
+The same thing occurs in several places, including [popups](https://react.semantic-ui.com/modules/popup).
+
+So the question really is how do we pass along our reagent component along as a React component?
+
+## The Widget
+
+Sticking with my tradition of building over engineered GitHub widgets, here are some tabs in action:
+
+<video width="100%" controls src="<%= asset_url "2018-04-22-passing-around-components-with-reagent-and-semantic-ui/github-tabs.mp4" %>"></video>
+
+The source code is available on GitHub at [kennethkalmer/re-frame-semantic-ui-react-github-tabs](https://github.com/kennethkalmer/re-frame-semantic-ui-react-github-tabs).
+
+Here is a truncated version of the tabs in the above video:
+
+~~~clojure
+(ns github-repo-widget.views
+  (:require [reagent.core :as reagent]
+            [re-frame.core :as re-frame]
+            [github-repo-widget.events :as events]
+            [github-repo-widget.subs :as subs]
+            [github-repo-widget.ui :as ui]))
+            
+(defn- readme-tab []
+  (let [loading? @(re-frame/subscribe [::subs/repo-readme-loading?])
+        readme   @(re-frame/subscribe [::subs/repo-readme])
+        pane     (ui/component "Tab" "Pane")]
+
+    [:> pane {:loading loading?}
+     [:div {:dangerouslySetInnerHTML {:__html readme}}]]))
+
+
+(defn- stats-tab []
+  (let [loading? @(re-frame/subscribe [::subs/repo-info-loading?])
+        pane     (ui/component "Tab" "Pane")]
+
+    [:> pane {:loading loading?}
+     ;; ...
+     ]))
+
+
+(defn- repo-tabs []
+  (let [panes [{:menuItem "Readme"
+                :render #(reagent/as-component [readme-tab])}
+               {:menuItem "Stats"
+                :render #(reagent/as-component [stats-tab])}]
+        tab (ui/component "Tab")]
+
+    [:> tab {:panes panes}]))
+~~~
+
+## The solution
+
+Reagent gives us `reagent.core/as-component`, which is exactly the interop we need to turn our Reagent component into a React component for these cases.
+
+In the case of the tab panes, Semantic UI React expects a function that returns a component as a value for the `render` property. In other places it expects the component directly, as seen with popups:
+
+~~~clojure
+(defn info-icon
+  ([message]
+   (info-icon {} message))
+
+  ([options message]
+   (let [popup (component "Popup")
+         icon  (component "Icon")]
+         
+     [:> popup
+      {:trigger (reagent/as-component [:> icon
+                                          (merge {:name "info"}
+                                                 options)])}
+      " "
+      message])))
+~~~
+
+Here the `trigger` property expects another component, not a function that returns the component.
+
+## In close
+
+Being able to use Semantic UI React directly in ClojureScript without going through some insane incantations or rituals is a testament to the amazing work done by the Reagent contributors.
+
+It is also a testament to Clojures pragmatic approach of embracing the language/environment that hosts it.
