@@ -2,14 +2,7 @@
 # Blog settings
 ###
 
-Time.zone = "Africa/Johannesburg"
-
-###
-# Tweaks
-###
-
-# https://github.com/middleman/middleman/issues/2002
-Tilt::SYMBOL_ARRAY_SORTABLE = false
+Time.zone = "Europe/London"
 
 ###
 # Page options, layouts, aliases and proxies
@@ -79,7 +72,7 @@ end
 activate :directory_indexes
 
 # Be discoverable
-set :url_root, "http://www.opensourcery.co.za"
+set :url_root, "https://www.opensourcery.co.za"
 activate :search_engine_sitemap
 
 # Disqus
@@ -140,7 +133,7 @@ set :fonts_dir, "fonts"
 
 # Build-specific configuration
 configure :build do
-  set :root_url, "https://opensourcery.co.za"
+  set :root_url, "https://www.opensourcery.co.za"
 
   activate :minify_css
   activate :minify_javascript
