@@ -66,7 +66,8 @@ page "/.htaccess.html", layout: false
 
 # https://github.com/middleman/middleman/issues/1243#issuecomment-39356604
 config.ignored_sitemap_matchers[:source_dotfiles] = proc { |file|
-  file =~ %r{/\.} && file !~ %r{/\.(well-known|htaccess|htpasswd|nojekyll)}
+  path = file.full_path.to_s
+  path =~ %r{/\.} && path !~ %r{/\.(well-known|htaccess|htpasswd|nojekyll)}
 }
 
 # Reload the browser automatically whenever files change
@@ -88,9 +89,9 @@ activate :disqus do |d|
 end
 
 # UA
-activate :google_analytics do |ga|
-  ga.tracking_id = 'UA-192703-9'
-end
+# activate :google_analytics do |ga|
+#   ga.tracking_id = 'UA-192703-9'
+# end
 
 # Syntax
 activate :syntax
@@ -122,10 +123,10 @@ helpers do
 
 end
 
-# Static CSS
+# Static assets
 activate :external_pipeline,
          name: :gulp,
-         command: "./node_modules/.bin/gulp #{'styles' if build?}",
+         command: "./node_modules/.bin/gulp #{'build' if build?}",
          source: "tmp"
 
 # Markdown tweaks
