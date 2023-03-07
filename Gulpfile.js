@@ -1,22 +1,29 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var babel = require('gulp-babel');
-var concat = require('gulp-concat');
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
 
-gulp.task('styles', function() {
-    return gulp.src('styles/**/*.scss')
-        .pipe(sass().on('error', sass.logError))
+function buildStyles() {
+    return gulp.src('./styles/**/*.scss')
+        .pipe(sass.sync().on('error', sass.logError))
         .pipe(gulp.dest('./tmp/stylesheets/'));
-});
+};
 
-gulp.task('scripts', function() {
+function watchStyles() {
+    return gulp.watch('./styles/**/*.scss', buildStyles);
+}
+
+function buildScripts() {
     return gulp.src(['scripts/jquery.js', 'scripts/**/*.js'])
-        .pipe(babel({presets: ['es2015']}))
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./tmp/javascripts/'));
-});
+}
 
-gulp.task('default',function() {
-    gulp.watch('styles/**/*.scss', ['styles']);
-    gulp.watch('scripts/**/*.js', ['scripts']);
-});
+function watchScripts() {
+    return gulp.watch('./scripts/**/*.js', buildScripts);
+}
+
+exports.build = gulp.parallel(buildStyles, buildScripts);
+exports.watch = gulp.parallel(watchStyles, watchScripts);
+
+exports.default = gulp.parallel(watchStyles, watchScripts);
