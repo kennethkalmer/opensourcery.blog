@@ -55,8 +55,8 @@
 
     <div class="pagination_typesome">
       <nav class="pagination" role="navigation">
-        <% prev_page = current_article.previous_article
-           next_page = current_article.next_article %>
+        <% prev_page = current_article.article_previous
+           next_page = current_article.article_next %>
         <% if prev_page %>
           <a class="newer-posts" href="<%= prev_page.url %>"><span class="fa fa-chevron-left"></span> <%= prev_page.title %></a>
         <% end %>
