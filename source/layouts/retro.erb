@@ -45,15 +45,15 @@
 
       <% if current_article %>
       <nav role="navigation" class="post-navigation">
-        <% unless current_article.previous_article.nil? %>
+        <% unless current_article.article_previous.nil? %>
         <div class="nav-previous">
-          <% article = current_article.previous_article %>
+          <% article = current_article.article_previous %>
           <%= link_to article.title, article, rel: 'prev' %>
         </div>
         <% end %>
-        <% unless current_article.next_article.nil? %>
+        <% unless current_article.article_next.nil? %>
         <div class="nav-next">
-          <% article = current_article.next_article %>
+          <% article = current_article.article_next %>
           <%= link_to article.title, article, rel: 'next' %>
         </div>
         <% end %>
