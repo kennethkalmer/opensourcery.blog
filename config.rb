@@ -116,11 +116,13 @@ set :fonts_dir, "fonts"
 
 configure :development do
   set :base_url, "http://localhost:4567"
+  set :url_root, config[:base_url] # Sitemap only
 end
 
 # Build-specific configuration
 configure :build do
   set :base_url, "https://www.opensourcery.co.za"
+  set :url_root, config[:base_url] # Sitemap only
 
   activate :minify_css
   activate :minify_javascript
@@ -128,5 +130,4 @@ configure :build do
 end
 
 # Be discoverable
-set :url_root, config[:base_url] # Sitemap only
 activate :search_engine_sitemap
