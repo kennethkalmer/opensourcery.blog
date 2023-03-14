@@ -1,11 +1,10 @@
 xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
-  site_url = "http://www.opensourcery.co.za/"
   xml.title "Open Sourcery"
   xml.subtitle "Performing regular wizardry through open-source software"
-  xml.id URI.join(site_url, blog.options.prefix.to_s)
-  xml.link "href" => URI.join(site_url, blog.options.prefix.to_s)
-  xml.link "href" => URI.join(site_url, current_page.path), "rel" => "self"
+  xml.id absolute_url(blog.options.prefix)
+  xml.link "href" => absolute_url(blog.options.prefix)
+  xml.link "href" => absolute_url(current_page.path), "rel" => "self"
   xml.author { xml.name "Kenneth Kalmer" }
 
   # Filter out only the Clojure articles
@@ -19,8 +18,8 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   clojure[0..5].each do |article|
     xml.entry do
       xml.title article.title
-      xml.link "rel" => "alternate", "href" => URI.join(site_url, article.url)
-      xml.id URI.join(site_url, article.url)
+      xml.link "rel" => "alternate", "href" => absolute_url(article.url)
+      xml.id absolute_url(article.url)
 
       # For the older articles
       if article.data[:guid]

@@ -71,10 +71,6 @@ end
 # Nice URL's
 activate :directory_indexes
 
-# Be discoverable
-set :url_root, "https://www.opensourcery.co.za"
-activate :search_engine_sitemap
-
 # Disqus
 activate :disqus do |d|
   # Disqus shotname, without '.disqus.com' on the end (default = nil)
@@ -103,19 +99,6 @@ activate :syntax
 #   end
 # end
 
-helpers do
-
-  def root_url
-    config[:root_url]
-  end
-
-  def image_url(source)
-    parts = [root_url, image_path(source)].compact
-    URI.join(*parts)
-  end
-
-end
-
 # Static assets
 activate :external_pipeline,
          name: :gulp,
@@ -131,11 +114,19 @@ set :css_dir, "stylesheets"
 set :images_dir, "images"
 set :fonts_dir, "fonts"
 
+configure :development do
+  set :base_url, "http://localhost:4567"
+end
+
 # Build-specific configuration
 configure :build do
-  set :root_url, "https://www.opensourcery.co.za"
+  set :base_url, "https://www.opensourcery.co.za"
 
   activate :minify_css
   activate :minify_javascript
   activate :asset_hash
 end
+
+# Be discoverable
+set :url_root, config[:base_url] # Sitemap only
+activate :search_engine_sitemap
