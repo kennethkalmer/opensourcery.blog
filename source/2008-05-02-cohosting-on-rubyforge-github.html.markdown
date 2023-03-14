@@ -12,7 +12,7 @@ tags:
 disqus_identifier: '22 http://www.opensourcery.co.za/?p=22'
 ---
 
-Thanks to [Dr Nic Williams][1] for highlighting this at such an awesome time. I&#8217;ve got the source for ActiveRecord::Tableless now on [GitHub][2] and [RubyForge][3], thanks to git. So you can grab a copy any time you want and contribute patches <img src="http://www.opensourcery.co.za/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" />
+Thanks to [Dr Nic Williams][1] for highlighting this at such an awesome time. I&#8217;ve got the source for ActiveRecord::Tableless now on [GitHub][2] and [RubyForge][3], thanks to git. So you can grab a copy any time you want and contribute patches 😃
 
 Get the code via from here:
 
