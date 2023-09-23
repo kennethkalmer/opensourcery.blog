@@ -121,7 +121,7 @@ end
 
 # Build-specific configuration
 configure :build do
-  set :base_url, "https://www.opensourcery.co.za"
+  set :base_url, "https://opensourcery.blog"
   set :url_root, config[:base_url] # Sitemap only
 
   activate :minify_css
