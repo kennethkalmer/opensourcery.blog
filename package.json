@@ -1,5 +1,5 @@
 {
-  "name": "opensourcery.co.za",
+  "name": "opensourcery.blog",
   "version": "3.0.0",
   "description": "Open Sourcery",
   "devDependencies": {
@@ -19,5 +19,5 @@
   },
   "author": "Kenneth Kalmer",
   "license": "MIT",
-  "repository": "https://github.com/kennethkalmer/opensourcery.co.za"
+  "repository": "https://github.com/kennethkalmer/opensourcery.blog"
 }
