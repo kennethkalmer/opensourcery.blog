@@ -20,3 +20,4 @@
 
 # Ignore node, well, not completely
 /node_modules
+.envrc
