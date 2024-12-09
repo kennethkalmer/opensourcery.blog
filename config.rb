@@ -54,14 +54,28 @@ end
 page "/feed.xml", layout: false
 page "/clojure.xml", layout: false
 
-# .htaccess love
-page "/.htaccess.html", layout: false
-
+# Exclude .well-known files from the sitemap
 # https://github.com/middleman/middleman/issues/1243#issuecomment-39356604
 config.ignored_sitemap_matchers[:source_dotfiles] = proc { |file|
   path = file.full_path.to_s
   path =~ %r{/\.} && path !~ %r{/\.(well-known|htaccess|htpasswd|nojekyll)}
 }
+
+# Don't treat _redirects as a partial, it is needed for Cloudflare
+# Based on https://github.com/middleman/middleman/issues/1243#issuecomment-61881586
+# but with code from https://github.com/middleman/middleman/blob/47223f5768ce079e24865ceef836a0d95a154398/middleman-core/lib/middleman-core/application.rb#L181-L192
+config[:ignored_sitemap_matchers][:partials] = proc do |file|
+  ignored = false
+
+  file[:relative_path].ascend do |f|
+    if f.basename.to_s =~ %r{^_[^_]} && f.basename.to_s !~ %r{^_redirects}
+      ignored = true
+      break
+    end
+  end
+
+  ignored
+end
 
 # Reload the browser automatically whenever files change
 configure :development do
