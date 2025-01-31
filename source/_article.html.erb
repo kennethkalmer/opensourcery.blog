@@ -22,17 +22,6 @@
 	</div>
 
 	<footer class="excerptfooter_typesome" >
-		<section class="read_typesome">
-      <%= link_to "Read More", article, class: "more_typesome" %>
-			<span></span>
-      <a class="comments_typesome" href="<%= article.url %>#disqus_thread" data-disqus-identifier="<%= article.data[:disqus_identifier] %>">Comments</a>
-		</section>
-
-		<section class="share_typesome">
-			<h4>Share: &nbsp;</h4>
-      <a class="fa fa-twitter-square" target="_blank" href="https://twitter.com/share?text=<%= encode_component article.title %>&url=<%= encoded_url_for(article.url) %>"><span class="hidden_typesome">Twitter</span></a>
-		  <a class="fa fa-facebook-square" target="_blank" href="https://www.facebook.com/sharer.php?u=<%= encoded_url_for(article.url) %>"><span class="hidden_typesome">Facebook</span></a>
-		</section>
 	</footer>
 
 </article>
